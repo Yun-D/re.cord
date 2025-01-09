@@ -19,7 +19,7 @@
   --font-size-lg: 20px;
   /*------- 보더라인 -------*/
   --border-size: 1px;
-  --border-button-size: 1.5px;
+  --border-size-btn: 1.5px;
 }
 
 body {
