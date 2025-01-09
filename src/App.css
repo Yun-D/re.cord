@@ -15,12 +15,15 @@
 
   /*------------------ 사이즈 ------------------*/
   /*------- 폰트 -------*/
-  --font-size-md: 14px;
+  --font-size-sm: 14px
+  --font-size-md: 18px;
   --font-size-lg: 20px;
   /*------- 보더라인 -------*/
   --border-size: 1px;
   --border-size-btn: 1.5px;
 }
+
+/* ******************************************************************** */
 
 body {
   /* font-family: "Pretendard Variable", Pretendard, -apple-system,
@@ -29,7 +32,7 @@ body {
     "Segoe UI Emoji", "Segoe UI Symbol", sans-serif; */
 
   overflow-x: auto;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
 }
 
 .app-container {
@@ -49,6 +52,49 @@ body {
 .content {
   padding: 26px;
 }
+
+/* ******************************************************************** */
+
+.nav-bar {
+  background-color: white;
+  border-top: var(--border-size) solid var(--color-line-black);
+  height: 90px;
+  width: 500px;
+  z-index: 999;
+
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  overflow: hidden;
+}
+.nav-item {
+  flex: 1;
+  font-size: var(--font-size-md);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  color: var(--color-grey);
+  transition: transform 0.2s ease, fill 0.2s ease;
+}
+.nav-icon {
+  width: 30px;
+  height: 30px;
+  margin-bottom: 4px;
+  fill: var(--color-grey);
+}
+.nav-item:hover{
+  transform: scale(1.15);
+  color: var(--color-line-black);
+}
+.nav-item:hover .nav-icon {
+  fill: var(--color-primary);
+  
+}
+
+/* ******************************************************************** */
 
 .App-logo {
   height: 40vmin;
