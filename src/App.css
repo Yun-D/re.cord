@@ -85,13 +85,15 @@ body {
   margin-bottom: 4px;
   fill: var(--color-grey);
 }
+
 .nav-item:hover{
-  transform: scale(1.15);
+  transform: scale(1.12);
   color: var(--color-line-black);
 }
 .nav-item:hover .nav-icon {
   fill: var(--color-primary);
-  
+  stroke: var(--color-line-black);
+  stroke-width: var(--border-size);
 }
 
 /* ******************************************************************** */
