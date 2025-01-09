@@ -1,5 +1,53 @@
-.App {
-  text-align: center;
+/* @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable-dynamic-subset.css"); */
+
+:root {
+  /*------------------ 컬러 ------------------*/
+  /*------- 메인 컬러칩 -------*/
+  --color-primary: #d4f85b;
+  --color-purple: #be50fa;
+  --color-pink: #fa50be;
+  --color-yellow: #fae150;
+  --color-grey: #c8c8c8;
+  --color-line-black: #141313; /* 선, 텍스트에 사용되는 모든 검정 */
+
+  /*------- 기타 -------*/
+  --color-background: #efefef;
+
+  /*------------------ 사이즈 ------------------*/
+  /*------- 폰트 -------*/
+  --font-size-md: 14px;
+  --font-size-lg: 20px;
+  /*------- 보더라인 -------*/
+  --border-size: 1px;
+  --border-button-size: 1.5px;
+}
+
+body {
+  /* font-family: "Pretendard Variable", Pretendard, -apple-system,
+    BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
+    "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", sans-serif; */
+
+  overflow-x: auto;
+  overflow-y: scroll;
+}
+
+.app-container {
+  background-color: var(--color-background);
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+.box-wrapper {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  width: 500px;
+  background-color: white;
+}
+.content {
+  padding: 26px;
 }
 
 .App-logo {
