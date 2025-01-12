@@ -65,12 +65,12 @@ body {
   position: fixed;
   bottom: 0;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  gap: 80px;
   align-items: center;
   overflow: hidden;
 }
 .nav-item {
-  flex: 1;
   font-size: var(--font-size-md);
   text-decoration: none;
   display: flex;
