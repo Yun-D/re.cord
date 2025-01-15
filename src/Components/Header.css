@@ -1,0 +1,17 @@
+.header-bar {
+  background-color: white;
+  height: 70px;
+  width: 500px;
+  z-index: 999;
+
+  position: fixed;
+  top: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.logo {
+  width: 54px;
+}
