@@ -43,7 +43,6 @@ body {
   align-items: center;
 }
 .box-wrapper {
-  margin-top: 70px;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -51,7 +50,8 @@ body {
   background-color: white;
 }
 .content {
-  padding: 26px;
+  margin-top: 70px;
+  padding: 8px 26px;
 }
 
 
