@@ -5,7 +5,7 @@ import { ReactComponent as IcnWish } from "../Assets/wish.svg";
 import "./Navbar.css";
 
 const Navbar = () => {
-  const [activeMenu, setActiveMenu] = useState();
+  const [activeMenu, setActiveMenu] = useState(0);
 
   const handleMenu = (props) => {
     setActiveMenu(props);
@@ -13,19 +13,19 @@ const Navbar = () => {
 
   const navItems = [
     {
-      id: 1,
+      id: 0,
       href: "#home",
       icon: <IcnHome className="nav-icon" />,
       label: "홈",
     },
     {
-      id: 2,
+      id: 1,
       href: "#record",
       icon: <IcnRecord className="nav-icon" />,
       label: "기록",
     },
     {
-      id: 3,
+      id: 2,
       href: "#wish",
       icon: <IcnWish className="nav-icon" />,
       label: "위시",
