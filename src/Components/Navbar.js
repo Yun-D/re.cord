@@ -39,6 +39,7 @@ const Navbar = () => {
       {navItems.map((item, idx) => (
         <Link
           to={item.href}
+          key={item.id}
           className={`nav-item ${activeMenu === idx ? "active" : ""}`}
           onClick={() => handleMenu(idx)}
         >
