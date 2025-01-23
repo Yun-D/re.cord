@@ -55,6 +55,9 @@ body {
 .content-gap {
   margin-bottom: 48px;
 }
+.no-margin {
+  margin: 0;
+}
 
 .text-title {
   font-size: var(--font-size-lg);
