@@ -71,6 +71,8 @@ body {
   width: 448px;
   height: 246px;
   background-color: aliceblue;
+  display: flex;
+  justify-content: center;
 }
 
 .ratingSpread {

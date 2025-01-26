@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "../Components/Button";
 
 const Home = () => {
   let username = "username"; //TODO: 추후 백엔드 작업 시 변경요
@@ -11,7 +12,9 @@ const Home = () => {
       <div>
         <p className="text-title">최근 추가된 기록</p>
 
-        <div className="recentRecords" />
+        <div className="recentRecords">
+          <Button>더보기</Button>
+        </div>
       </div>
       <div className="content-gap" />
       <div>
