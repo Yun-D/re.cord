@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "../Components/Button";
+import ListItem from "../Components/ListItem";
 
 const Home = () => {
   let username = "username"; //TODO: 추후 백엔드 작업 시 변경요
@@ -13,6 +14,7 @@ const Home = () => {
         <p className="text-title">최근 추가된 기록</p>
 
         <div className="recentRecords">
+          <ListItem />
           <Button>더보기</Button>
         </div>
       </div>
