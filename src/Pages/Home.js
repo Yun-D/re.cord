@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "../Components/Button";
 import ListItem from "../Components/ListItem";
+import FloatingButton from "../Components/FloatingButton";
 
 const Home = () => {
   let username = "username"; //TODO: 추후 백엔드 작업 시 변경요
@@ -24,6 +25,8 @@ const Home = () => {
 
         <div className="ratingSpread" />
       </div>
+
+      <FloatingButton />
     </div>
   );
 };
