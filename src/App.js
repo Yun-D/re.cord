@@ -1,6 +1,11 @@
 import React from "react";
 import "./App.css";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 
 import Header from "./Components/Header";
 import Navbar from "./Components/Navbar";
@@ -16,6 +21,7 @@ function App() {
           <Header />
           <div className="content">
             <Routes>
+              <Route path="/" element={<Navigate to="/home" />} />
               <Route path="/home" element={<Home />} />
               <Route path="/record" element={<Record />} />
               <Route path="/wish" element={<Wish />} />
