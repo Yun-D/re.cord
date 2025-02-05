@@ -32,25 +32,26 @@ body {
     "Segoe UI Emoji", "Segoe UI Symbol", sans-serif; */
 
   overflow-x: hidden;
-  /* overflow-y: scroll; */
 }
 
 .app-container {
   background-color: var(--color-background);
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   position: relative;
+  min-height: 100vh; /* 최소높이 설정 */
 }
 .box-wrapper {
-  height: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   width: 500px;
+  height: 100%; /* 부모 높이 상속 */
+  min-height: calc(100vh - 70px); /* 유동적인 높이 조절 위해 min-height 사용, navbar 영역 계산 */
   background-color: white;
+  padding-top: 70px;
 }
 .content {
-  margin-top: 70px;
   padding: 8px 26px 110px;
 }
 .content-gap {
