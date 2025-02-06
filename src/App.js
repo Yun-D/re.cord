@@ -10,7 +10,9 @@ import {
 import Header from "./Components/Header";
 import Navbar from "./Components/Navbar";
 import Home from "./Pages/Home";
+import Record404 from "./Pages/Record404";
 import Record from "./Pages/Record";
+import Wish404 from "./Pages/Wish404";
 import Wish from "./Pages/Wish";
 
 function App() {
@@ -23,7 +25,9 @@ function App() {
             <Routes>
               <Route path="/" element={<Navigate to="/home" />} />
               <Route path="/home" element={<Home />} />
+              <Route path="/record404" element={<Record404 />} />
               <Route path="/record" element={<Record />} />
+              <Route path="/wish404" element={<Wish404 />} />
               <Route path="/wish" element={<Wish />} />
             </Routes>
           </div>

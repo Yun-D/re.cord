@@ -39,7 +39,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  position: relative;
   min-height: 100vh; /* 최소높이 설정 */
 }
 .box-wrapper {
@@ -52,8 +51,10 @@ body {
   padding-top: 70px;
 }
 .content {
+  box-sizing: border-box;
   padding: 8px 26px 110px;
 }
+
 .content-gap {
   margin-bottom: 48px;
 }

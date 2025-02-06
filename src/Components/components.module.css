@@ -2,7 +2,7 @@
 .button {
   background-color: white;
   border-radius: 3px;
-  width: calc(10ch + 5%);
+  width: calc(12ch + 10%);
   height: 34px;
   border: var(--border-size) solid var(--color-line-black);
   box-shadow: 3px 3px 0px var(--color-line-black);
