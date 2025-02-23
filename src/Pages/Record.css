@@ -21,6 +21,23 @@
   height: 40px;
 }
 
+/* 버튼 관련 ------------------------------ */
+.button-wrapper {
+  position: relative;
+  text-align: center;
+}
+.popup-button {
+  position: absolute;
+  top: 100px;
+  right: 110px;
+}
+
+.pinIcon {
+  width: 36px;
+  height: 36px;
+  margin-top: 5px;
+}
+
 .colorchip {
   width: 96px;
   height: 66px;

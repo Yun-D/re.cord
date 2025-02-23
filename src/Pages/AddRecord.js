@@ -1,6 +1,10 @@
 import React from "react";
-import record from "../Assets/recordpan.svg";
 import Button from "../Components/Button.js";
+import styles from "../Components/components.module.css";
+
+import record from "../Assets/recordpan.svg";
+import { ReactComponent as IcnHeart } from "../Assets/heart.svg";
+
 import "./Record.css";
 
 const AddRecord = () => {
@@ -8,8 +12,13 @@ const AddRecord = () => {
 
   return (
     <div>
-      <div className="content-align">
+      <div className="button-wrapper">
         <img src={record} alt="레코드판" />
+        <div className="popup-button">
+          <button className={`${styles.button} ${styles.round}`}>
+            <IcnHeart className="pinIcon" />
+          </button>
+        </div>
       </div>
 
       <div className="content-gap" />
