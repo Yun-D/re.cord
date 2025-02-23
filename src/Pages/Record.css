@@ -1,6 +1,5 @@
 .container {
   height: calc(100vh - 140px - 110px);
-  box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,4 +8,34 @@
 .content-align {
   flex: 1;
   text-align: center;
+}
+
+.row-direction {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.textinput {
+  width: 100%;
+  height: 40px;
+}
+
+.colorchip {
+  width: 96px;
+  height: 66px;
+  border: 1px solid var(--color-line-black);
+  border-radius: 3px;
+}
+.green {
+  background-color: var(--color-primary);
+}
+.pink {
+  background-color: var(--color-pink);
+}
+.yellow {
+  background-color: var(--color-yellow);
+}
+.purple {
+  background-color: var(--color-purple);
 }
