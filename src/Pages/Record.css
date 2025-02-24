@@ -15,6 +15,11 @@
   flex-direction: row;
   justify-content: space-between;
 }
+.contentArea {
+  display: flex;
+  flex-wrap: wrap;
+  width: 480px;
+}
 
 .textinput {
   width: 100%;

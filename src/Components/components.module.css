@@ -105,3 +105,80 @@
 .floatingButton:hover {
   transform: scale(1.1);
 }
+
+/* ----------------------------------------- */
+
+/* RecordItem ------------------------------ */
+.vinylContainer {
+  position: relative;
+  width: 210px;
+  height: 140px;
+  display: flex;
+  margin: 10px 15px 5px 0px;
+}
+
+.vinylCase {
+  position: relative;
+}
+.buttonCover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateX(50%);
+}
+.vinyl {
+  background: linear-gradient(white, var(--color-pink));
+  /* FIXME: background 부분 prop에따라 변경되도록 수정해야함 */
+  border: 1.5px solid var(--color-line-black);
+  border-radius: 50%;
+  width: 140px;
+  height: 140px;
+  position: absolute;
+}
+.vinylDeco1 {
+  width: 40px;
+  height: 40px;
+  background: black;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.vinylDeco2 {
+  width: 55px;
+  height: 55px;
+  border: 1.5px solid var(--color-line-black);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.albumButton {
+  z-index: 10;
+  background-color: white;
+  width: 140px;
+  height: 140px;
+  border: var(--border-size) solid var(--color-line-black);
+  box-shadow: 3px 3px 0px var(--color-line-black);
+  cursor: pointer;
+}
+.icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  fill: var(--color-pink);
+  /* FIXME: fill 부분 prop에따라 변경되도록 수정해야함 */
+}
+.label {
+  position: absolute;
+  bottom: 10px;
+  padding: 4px 8px;
+  border: var(--border-size) solid var(--color-line-black);
+  border-radius: 3px;
+  background: white;
+  font-size: 15px;
+}
