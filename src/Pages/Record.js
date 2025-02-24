@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import RecordItem from "../Components/RecordItem";
 
 import "./Record.css";
+import { ReactComponent as IcnPlus } from "../Assets/add.svg";
 
 const Record = () => {
   return (
@@ -15,7 +16,9 @@ const Record = () => {
       </div>
 
       <Link to="/addRecord">
-        <FloatingButton />
+        <FloatingButton>
+          <IcnPlus />
+        </FloatingButton>
       </Link>
     </div>
   );
