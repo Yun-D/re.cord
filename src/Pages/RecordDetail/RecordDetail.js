@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import FloatingButton from "../../Components/FloatingButton";
 
 import { ReactComponent as IcnFolder } from "../../Assets/folder.svg";
@@ -11,6 +11,9 @@ const RecordDetail = ({ title }) => {
     pinCount: 2,
     memoCount: 3,
   };
+
+  const [isEmpty, setIsEmpty] = useState(false);
+  //TODO: 데이터 요청 후 바로 setIsEmpty 설정하는 코드 추가
 
   return (
     <div>
@@ -30,15 +33,19 @@ const RecordDetail = ({ title }) => {
       </div>
       {/* -------------------- */}
 
-      <div className="container">
-        <div className="content-align">
-          <p>
-            저장된 장소가 없어요.
-            <br />
-            버튼을 눌러 핀을 추가해볼까요?
-          </p>
+      {isEmpty ? (
+        <div className="container">
+          <div className="content-align">
+            <p>
+              저장된 장소가 없어요.
+              <br />
+              버튼을 눌러 핀을 추가해볼까요?
+            </p>
+          </div>
         </div>
-      </div>
+      ) : (
+        <div> </div>
+      )}
 
       <FloatingButton>
         <IcnEdit />

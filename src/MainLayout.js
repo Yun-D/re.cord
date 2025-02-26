@@ -8,12 +8,10 @@ import TitleHeader from "./Components/TitleHeader";
 import Navbar from "./Components/Navbar";
 import Home from "./Pages/Home";
 
-import Record404 from "./Pages/Record404";
 import Record from "./Pages/Record";
 import AddRecord from "./Pages/AddRecord";
 import RecordDetail from "./Pages/RecordDetail/RecordDetail";
 
-import Wish404 from "./Pages/Wish404";
 import Wish from "./Pages/Wish";
 
 const MainLayout = () => {
@@ -33,11 +31,9 @@ const MainLayout = () => {
           <Routes>
             <Route path="/" element={<Navigate to="/home" />} />
             <Route path="/home" element={<Home />} />
-            <Route path="/record404" element={<Record404 />} />
             <Route path="/record" element={<Record />} />
             <Route path="/addRecord" element={<AddRecord />} />
             <Route path="/recordDetail" element={<RecordDetail />} />
-            <Route path="/wish404" element={<Wish404 />} />
             <Route path="/wish" element={<Wish />} />
           </Routes>
         </div>
