@@ -1,0 +1,32 @@
+.row-direction {
+  display: flex;
+  flex-direction: row;
+  height: 26px;
+  align-items: center;
+}
+
+.title-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.dataSummary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.d-icon {
+  width: 32px;
+  height: 32px;
+  margin-right: 8px;
+}
+.d-icon-sm {
+  font-size: var(--font-size-lg);
+  margin-left: 10px;
+}
+
+.title {
+  font-size: var(--font-size-lg);
+  font-weight: bold;
+}
