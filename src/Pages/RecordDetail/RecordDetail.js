@@ -4,6 +4,7 @@ import FloatingButton from "../../Components/FloatingButton";
 import { ReactComponent as IcnFolder } from "../../Assets/folder.svg";
 import { ReactComponent as IcnEdit } from "../../Assets/edit.svg";
 import "./RecordDetail.css";
+import { Link } from "react-router-dom";
 
 const RecordDetail = ({ title }) => {
   const dummy = {
@@ -12,7 +13,7 @@ const RecordDetail = ({ title }) => {
     memoCount: 3,
   };
 
-  const [isEmpty, setIsEmpty] = useState(false);
+  const [isEmpty, setIsEmpty] = useState(true);
   //TODO: 데이터 요청 후 바로 setIsEmpty 설정하는 코드 추가
 
   return (
@@ -47,9 +48,11 @@ const RecordDetail = ({ title }) => {
         <div> </div>
       )}
 
-      <FloatingButton>
-        <IcnEdit />
-      </FloatingButton>
+      <Link to="/addPin">
+        <FloatingButton>
+          <IcnEdit />
+        </FloatingButton>
+      </Link>
     </div>
   );
 };

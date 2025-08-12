@@ -60,6 +60,14 @@
   margin: 0;
 }
 
+.row-direction {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+
+
 .text-title {
   font-size: var(--font-size-lg);
   font-weight: bold;
@@ -69,6 +77,9 @@
   font-size: var(--font-size-md);
   font-weight: bold;
   margin: 0 0 8px;
+}
+.text-plain {
+  font-size: var(--font-size-sm);
 }
 
 /* ******************************************************************** */
