@@ -6,8 +6,9 @@ import "./App.css";
 import Header from "./Components/Header";
 import TitleHeader from "./Components/TitleHeader";
 import Navbar from "./Components/Navbar";
-import Home from "./Pages/Home";
 
+import Greeting from "./Pages/Greeting";
+import Home from "./Pages/Home";
 import Record from "./Pages/Record";
 import AddRecord from "./Pages/AddRecord";
 import RecordDetail from "./Pages/RecordDetail/RecordDetail";
@@ -31,7 +32,8 @@ const MainLayout = () => {
         {isTitleHeader ? <TitleHeader title={title} /> : <Header />}
         <div className="content">
           <Routes>
-            <Route path="/" element={<Navigate to="/home" />} />
+            <Route path="/" element={<Navigate to="/greeting" />} />
+            <Route path="/greeting" element={<Greeting />} />
             <Route path="/home" element={<Home />} />
             <Route path="/record" element={<Record />} />
             <Route path="/addRecord" element={<AddRecord />} />
