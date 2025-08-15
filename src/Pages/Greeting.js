@@ -1,75 +1,51 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { auth, db } from "../auth/firebase";
-import { signInAnonymously, onAuthStateChanged } from "firebase/auth"; //익명로그인, 로그인상태 변경 감지 기능
+import { signInAnonymously } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore"; //문서 참조 생성, 데이터 저장기능
 import Button from "../Components/Button";
 
 const Greeting = () => {
-  const [nickname, setNickname] = useState(
-    "" || localStorage.getItem("nickname")
-  );
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    // 로그인 상태 감지. 로그인,아웃 시 실행
-    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      if (currentUser) {
-        //로그인 되었다면 user상태 업데이트
-        setUser(currentUser);
-
-        // user.uid 로컬스토리지에 저장
-        localStorage.setItem("anonUserid", currentUser.uid);
-
-        // 로그인 된 후 Firestore users/{uid} 에 사용자 정보 저장 (merge: true → 기존 데이터가 있으면 덮어쓰지않고 갱신만)
-        if (nickname || localStorage.getItem("nickname")) {
-          const finalName = nickname || localStorage.getItem("nickname");
-          const userDocRef = doc(db, "users", currentUser.uid);
-          await setDoc(
-            userDocRef,
-            {
-              uid: currentUser.uid,
-              anonymous: currentUser.isAnonymous,
-              nickname: finalName,
-              lastLogin: new Date().toISOString(),
-            },
-            { merge: true }
-          );
-        }
-      } else {
-        localStorage.removeItem("anonUserid");
-        setUser(null);
-      }
-      setLoading(false);
-    });
-
-    return () => unsubscribe(); //클린업. onAuthStateChanged 리스너 제거
-  }, [nickname]);
+  const [nickname, setNickname] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   // 최초 방문자 로그인 함수
   const handleLogin = async () => {
     if (!nickname.trim()) {
+      // 닉네임이 비어있거나 공백만 있는 경우
       alert("닉네임을 입력해주세요.");
       return;
     }
 
-    // 로컬스토리지에 닉네임 저장
-    localStorage.setItem("nickname", nickname);
-    setLoading(true);
-
     // 익명 로그인 시도
     try {
-      await signInAnonymously(auth);
+      setLoading(true);
+      localStorage.setItem("nickname", nickname); // 로컬스토리지에 닉네임 저장
+
+      const cred = await signInAnonymously(auth); // 익명 로그인 시도, 사용자 인증 정보 획득
+
+      // Firestore에 사용자 정보 저장
+      const userDocRef = doc(db, "users", cred.user.uid);
+      await setDoc(
+        userDocRef,
+        {
+          uid: cred.user.uid,
+          anonymous: cred.user.isAnonymous,
+          nickname: nickname,
+          lastLogin: new Date().toISOString(),
+        },
+        { merge: true }
+      );
+
+      navigate("/home"); // 로그인 후 홈으로 이동
     } catch (err) {
-      setError(err.message);
+      console.error("로그인 오류: ", err.message);
+    } finally {
       setLoading(false);
     }
   };
-
-  if (loading) return <div>로딩중...</div>;
-  if (error) return <div>오류 발생: {error}</div>;
 
   return (
     <div>
@@ -88,15 +64,9 @@ const Greeting = () => {
         }}
       />
 
-      <Button onClick={handleLogin}>시작하기</Button>
-      {user ? (
-        <div>
-          <p>UID: {user.uid}</p>
-          <p>익명 여부: {user.isAnonymous ? "예" : "아니오"}</p>
-        </div>
-      ) : (
-        <p>로그인되지 않음</p>
-      )}
+      <Button onClick={handleLogin} disabled={loading}>
+        {loading ? "로그인 중..." : "시작하기"}
+      </Button>
     </div>
   );
 };

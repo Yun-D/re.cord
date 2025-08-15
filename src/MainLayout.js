@@ -1,5 +1,11 @@
-import React from "react";
-import { Route, Routes, useLocation, Navigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import {
+  Route,
+  Routes,
+  useLocation,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 
 import "./App.css";
 
@@ -17,6 +23,7 @@ import AddPin from "./Pages/Pin/AddPin";
 import Wish from "./Pages/Wish";
 
 const MainLayout = () => {
+  const navigate = useNavigate();
   const thisLocation = useLocation(); //현재 위치
   const titleHeaderPages = {
     "/addRecord": "레코드 생성",
@@ -25,6 +32,15 @@ const MainLayout = () => {
   }; //타이틀 헤더를 사용하는 페이지 & 제목
   const title = titleHeaderPages[thisLocation.pathname] || "";
   const isTitleHeader = !!title; //title이 존재하지 않으면 false
+
+  useEffect(() => {
+    const nickname = localStorage.getItem("nickname");
+    if (nickname) {
+      navigate("/home"); //닉네임이 있으면 home 페이지로 이동
+    } else {
+      navigate("/greeting");
+    }
+  }, [navigate]);
 
   return (
     <div className="app-container">
