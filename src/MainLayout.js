@@ -1,11 +1,5 @@
-import React, { useEffect } from "react";
-import {
-  Route,
-  Routes,
-  useLocation,
-  Navigate,
-  useNavigate,
-} from "react-router-dom";
+import React from "react";
+import { Route, Routes, useLocation, Navigate } from "react-router-dom";
 
 import "./App.css";
 
@@ -13,6 +7,7 @@ import Header from "./Components/Header";
 import TitleHeader from "./Components/TitleHeader";
 import Navbar from "./Components/Navbar";
 
+import ProtectedRoute from "./Components/ProtectedRoute";
 import Greeting from "./Pages/Greeting";
 import Home from "./Pages/Home";
 import Record from "./Pages/Record";
@@ -23,7 +18,6 @@ import AddPin from "./Pages/Pin/AddPin";
 import Wish from "./Pages/Wish";
 
 const MainLayout = () => {
-  const navigate = useNavigate();
   const thisLocation = useLocation(); //현재 위치
   const titleHeaderPages = {
     "/addRecord": "레코드 생성",
@@ -33,15 +27,6 @@ const MainLayout = () => {
   const title = titleHeaderPages[thisLocation.pathname] || "";
   const isTitleHeader = !!title; //title이 존재하지 않으면 false
 
-  useEffect(() => {
-    const nickname = localStorage.getItem("nickname");
-    if (nickname) {
-      navigate("/home"); //닉네임이 있으면 home 페이지로 이동
-    } else {
-      navigate("/greeting");
-    }
-  }, [navigate]);
-
   return (
     <div className="app-container">
       <div className="box-wrapper">
@@ -49,7 +34,14 @@ const MainLayout = () => {
         <div className="content">
           <Routes>
             <Route path="/" element={<Navigate to="/greeting" />} />
-            <Route path="/greeting" element={<Greeting />} />
+            <Route
+              path="/greeting"
+              element={
+                <ProtectedRoute>
+                  <Greeting />
+                </ProtectedRoute>
+              }
+            />
             <Route path="/home" element={<Home />} />
             <Route path="/record" element={<Record />} />
             <Route path="/addRecord" element={<AddRecord />} />
