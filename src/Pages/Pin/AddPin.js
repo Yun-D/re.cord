@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../../Components/components.module.css";
-import "../Record.css";
+import "../Records.css";
 
 import { ReactComponent as IcnSearch } from "../../Assets/search.svg";
 import SearchLocaItem from "../../Components/SearchLocaItem";

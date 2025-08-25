@@ -54,6 +54,13 @@
   padding: 78px 26px 110px;
   min-height: 0;
 }
+.no-nav-background {
+  background-color: white;
+  height: 90px;
+  width: 500px;
+  position: fixed;
+  bottom: 0;
+}
 
 .content-gap {
   margin-bottom: 48px;

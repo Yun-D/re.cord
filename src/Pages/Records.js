@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import RecordItem from "../Components/RecordItem";
 import Button from "../Components/Button";
 
-import "./Record.css";
+import "./Records.css";
 import { ReactComponent as IcnPlus } from "../Assets/add.svg";
 
 const Record = () => {

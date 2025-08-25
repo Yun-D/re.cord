@@ -5,7 +5,7 @@ import styles from "../Components/components.module.css";
 import record from "../Assets/recordpan.svg";
 import { ReactComponent as IcnHeart } from "../Assets/heart.svg";
 
-import "./Record.css";
+import "./Records.css";
 
 const AddRecord = () => {
   const colors = ["green", "pink", "yellow", "purple"];
@@ -28,7 +28,7 @@ const AddRecord = () => {
           type="text"
           placeholder=" 장소를 모을 테마 이름을 정해주세요."
           maxLength={12} //FIXME: 적당한 값으로 변경해야함!
-          className="textinput"
+          className="inputbox"
         />
 
         <div className="content-gap" />
