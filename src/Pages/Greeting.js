@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { auth, db } from "../auth/firebase";
 import { signInAnonymously } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore"; //문서 참조 생성, 데이터 저장기능
+
+import "./Greeting.css";
 import Button from "../Components/Button";
 
 const Greeting = () => {
@@ -49,24 +51,28 @@ const Greeting = () => {
 
   return (
     <div>
+      <div className="content-gap" />
       <div className="text-title">
         Re-cord! <br />
         기록 시작 전, 당신의 닉네임을 알려주세요.
       </div>
+      <div className="content-gap" />
 
-      <input
-        type="text"
-        placeholder="닉네임을 입력하세요"
-        className="textinput"
-        value={nickname}
-        onChange={(e) => {
-          setNickname(e.target.value);
-        }}
-      />
+      <div className="center">
+        <input
+          type="text"
+          placeholder="닉네임을 입력하세요"
+          className="input_box"
+          value={nickname}
+          onChange={(e) => {
+            setNickname(e.target.value);
+          }}
+        />
 
-      <Button onClick={handleLogin} disabled={loading}>
-        {loading ? "로그인 중..." : "시작하기"}
-      </Button>
+        <Button onClick={handleLogin} disabled={loading}>
+          {loading ? "로그인 중..." : "시작하기"}
+        </Button>
+      </div>
     </div>
   );
 };
