@@ -73,6 +73,12 @@ const Greeting = () => {
           {loading ? "로그인 중..." : "시작하기"}
         </Button>
       </div>
+
+      <div className="shapes">
+        <div className="shape close" />
+        <div className="shape burst" />
+        <div className="shape sparkle" />
+      </div>
     </div>
   );
 };
