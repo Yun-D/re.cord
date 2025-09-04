@@ -19,14 +19,14 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  color: var(--color-grey);
+  color: var(--color-gray);
   transition: transform 0.2s ease, fill 0.2s ease;
 }
 .nav-icon {
   width: 30px;
   height: 30px;
   margin-bottom: 4px;
-  fill: var(--color-grey);
+  fill: var(--color-gray);
 }
 
 .nav-item:hover {
