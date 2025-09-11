@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "../Components/Button.js";
 import styles from "../Components/components.module.css";
 
@@ -10,6 +11,7 @@ import { addRecord } from "../firebase/firestore/recordsCRUD"; // API 함수 임
 import "./Records.css";
 
 const AddRecord = () => {
+  const navigate = useNavigate();
   const user = localStorage.getItem("anonUserid");
 
   const [name, setName] = useState("");
@@ -30,7 +32,7 @@ const AddRecord = () => {
     };
     try {
       await addRecord(user, newRecord);
-      // 성공적으로 추가된 후의 처리 (예: 페이지 이동 또는 상태 업데이트)
+      navigate("/record");
     } catch (error) {
       console.error("Error adding record: ", error);
     }
@@ -78,14 +80,12 @@ const AddRecord = () => {
           placeholder=" 레코드에 대한 간단한 설명을 적어주세요."
           className="textareaBox"
         />
-      </form>
 
-      <div className="content-align">
-        <div className="content-gap" />
-        <Button type="submit" onClick={handleSubmit}>
-          기록 시작하기
-        </Button>
-      </div>
+        <div className="content-align">
+          <div className="content-gap" />
+          <Button type="submit">기록 시작하기</Button>
+        </div>
+      </form>
     </div>
   );
 };
