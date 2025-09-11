@@ -1,14 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "../Components/Button.js";
 import styles from "../Components/components.module.css";
 
 import record from "../Assets/recordpan.svg";
 import { ReactComponent as IcnHeart } from "../Assets/heart.svg";
 
+import { addRecord } from "../firebase/firestore/recordsCRUD"; // API 함수 임포트
+
 import "./Records.css";
 
 const AddRecord = () => {
-  const colors = ["green", "pink", "yellow", "purple"];
+  const user = localStorage.getItem("anonUserid");
+
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+
+  const handleSubmit = async (e) => {
+    if (!name.trim()) {
+      alert("이름을 입력해주세요.");
+      return;
+    }
+
+    e.preventDefault();
+    const newRecord = {
+      recordId: Date.now().toString(),
+      name: name,
+      description: description,
+      pins: [],
+    };
+    try {
+      await addRecord(user, newRecord);
+      // 성공적으로 추가된 후의 처리 (예: 페이지 이동 또는 상태 업데이트)
+    } catch (error) {
+      console.error("Error adding record: ", error);
+    }
+  };
+
+  // const colors = ["green", "pink", "yellow", "purple"];
 
   return (
     <div>
@@ -22,29 +50,41 @@ const AddRecord = () => {
       </div>
 
       <div className="content-gap" />
-      <div>
+      <form onSubmit={handleSubmit}>
         <p className="text-subtitle">레코드 이름</p>
         <input
           type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           placeholder=" 장소를 모을 테마 이름을 정해주세요."
           maxLength={12} //FIXME: 적당한 값으로 변경해야함!
           className="inputbox"
         />
 
         <div className="content-gap" />
-        <p className="text-subtitle">색상</p>
+        {/* <p className="text-subtitle">색상</p>
         <div className="row-direction">
           {colors.map((color, idx) => (
             <button className={`colorchip ${color}`}>
               <div key={idx} />
             </button>
           ))}
-        </div>
-      </div>
+        </div> */}
+
+        <p className="text-subtitle">설명</p>
+        <textarea
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          placeholder=" 레코드에 대한 간단한 설명을 적어주세요."
+          className="textareaBox"
+        />
+      </form>
 
       <div className="content-align">
         <div className="content-gap" />
-        <Button>기록 시작하기</Button>
+        <Button type="submit" onClick={handleSubmit}>
+          기록 시작하기
+        </Button>
       </div>
     </div>
   );
