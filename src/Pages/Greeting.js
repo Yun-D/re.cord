@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { auth, db } from "../auth/firebase";
+import { auth, db } from "../firebase/firebase";
 import { signInAnonymously } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore"; //문서 참조 생성, 데이터 저장기능
 

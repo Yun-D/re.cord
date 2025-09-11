@@ -5,7 +5,7 @@ import ListItem from "../Components/ListItem";
 import FloatingButton from "../Components/FloatingButton";
 import { ReactComponent as IcnEdit } from "../Assets/edit.svg";
 
-import { auth } from "../auth/firebase";
+import { auth } from "../firebase/firebase";
 import { onAuthStateChanged } from "firebase/auth"; // 로그인상태 변경 감지 기능
 
 const Home = () => {
