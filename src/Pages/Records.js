@@ -1,16 +1,39 @@
-import React, { useState } from "react";
-import FloatingButton from "../Components/FloatingButton";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+
+import { fetchRecords } from "../firebase/firestore/recordsCRUD";
 import RecordItem from "../Components/RecordItem";
-import Button from "../Components/Button";
 
 import "./Records.css";
 import { ReactComponent as IcnPlus } from "../Assets/add.svg";
+import Button from "../Components/Button";
+import FloatingButton from "../Components/FloatingButton";
 
 const Record = () => {
+  const [records, setRecords] = useState(null);
   const [isEmpty, setIsEmpty] = useState(false);
-  //TODO: 데이터 요청 후 바로 setIsEmpty 설정하는 코드 추가
 
+  useEffect(() => {
+    // const auth = getAuth();
+    // const user = auth.currentUser;
+    const user = localStorage.getItem("anonUserid");
+
+    const loadUserRecords = async () => {
+      try {
+        const data = await fetchRecords(user);
+        setRecords(data);
+        setIsEmpty(data.length === 0);
+        console.log(data);
+      } catch (error) {
+        console.error("Error fetching records: ", error);
+        setIsEmpty(true);
+      }
+    };
+
+    loadUserRecords();
+  }, []);
+
+  if (!records) return <div>로딩중...</div>;
   return (
     <div>
       <h2 className="no-margin">기록</h2>
@@ -23,15 +46,19 @@ const Record = () => {
               <br />
               만들어볼까요?
             </p>
-            <Button>기록 시작하기</Button>
+            <Link to="/addRecord">
+              <Button>기록 시작하기</Button>
+            </Link>
           </div>
         </div>
       ) : (
         <div>
           <div className="contentArea">
-            <Link to="/recordDetail">
-              <RecordItem>홍대 가차샵</RecordItem>
-            </Link>
+            {records.map((item) => (
+              <Link to="/recordDetail" key={item.recordId}>
+                <RecordItem>{item.name}</RecordItem>
+              </Link>
+            ))}
           </div>
 
           <Link to="/addRecord">
