@@ -11,7 +11,7 @@ import FloatingButton from "../Components/FloatingButton";
 
 const Record = () => {
   const [records, setRecords] = useState(null);
-  const [isEmpty, setIsEmpty] = useState(false);
+  const [isEmpty, setIsEmpty] = useState(true);
 
   useEffect(() => {
     // const auth = getAuth();
@@ -55,7 +55,7 @@ const Record = () => {
         <div>
           <div className="contentArea">
             {records.map((item) => (
-              <Link to="/recordDetail" key={item.recordId}>
+              <Link to={`/recordDetail/${item.recordId}`} key={item.recordId}>
                 <RecordItem>{item.name}</RecordItem>
               </Link>
             ))}

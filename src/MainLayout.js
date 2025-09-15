@@ -46,7 +46,7 @@ const MainLayout = () => {
             <Route path="/home" element={<Home />} />
             <Route path="/record" element={<Records />} />
             <Route path="/addRecord" element={<AddRecord />} />
-            <Route path="/recordDetail" element={<RecordDetail />} />
+            <Route path="/recordDetail/:recordId" element={<RecordDetail />} />
             <Route path="/addPin" element={<AddPin />} />
             <Route path="/wish" element={<Wish />} />
           </Routes>
