@@ -6,6 +6,7 @@ import { ReactComponent as IcnEdit } from "../../Assets/edit.svg";
 import "./RecordDetail.css";
 import { Link, useParams } from "react-router-dom";
 import { fetchRecords } from "../../firebase/firestore/recordsCRUD";
+import TagListItem from "../../Components/TagListItem";
 
 const RecordDetail = () => {
   const dummy = {
@@ -76,7 +77,9 @@ const RecordDetail = () => {
           </div>
         </div>
       ) : (
-        <div> </div>
+        <div>
+          <TagListItem />
+        </div>
       )}
 
       <Link to="/addPin">
