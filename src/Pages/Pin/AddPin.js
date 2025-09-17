@@ -1,27 +1,27 @@
-import React from "react";
-import styles from "../../Components/components.module.css";
-import "../Records.css";
+import React, { useState } from "react";
 
-import { ReactComponent as IcnSearch } from "../../Assets/search.svg";
-import SearchLocaItem from "../../Components/SearchLocaItem";
+import PinStep1 from "./Steps/PinStep1";
+import PinStep2 from "./Steps/PinStep2";
+import PinStepFinal from "./Steps/PinStepFinal";
+
+const steps = [PinStep1, PinStep2, PinStepFinal];
 
 const AddPin = () => {
+  const [currStep, setCurrStep] = useState(0);
+  const [pinData, setPinData] = useState(null);
+
+  const StepComponent = steps[currStep];
+  const nextStep = () => setCurrStep((s) => s + 1);
+  const prevStep = () => setCurrStep((s) => s - 1);
+
   return (
     <>
-      <div className={styles.borderBox}>
-        <div className="row-direction">
-          <IcnSearch />
-          <input
-            type="text"
-            placeholder=" 기억하고싶은 장소를 검색하세요."
-            className="textinput"
-          />
-        </div>
-      </div>
-
-      <div className="content-gap" />
-      <SearchLocaItem />
-      <SearchLocaItem />
+      <StepComponent
+        pinData={pinData}
+        setPinData={setPinData}
+        nextStep={nextStep}
+        prevStep={prevStep}
+      />
     </>
   );
 };
