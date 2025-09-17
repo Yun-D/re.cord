@@ -1,0 +1,24 @@
+.contentAlign {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-height: calc(100vh - 140px - 45px);
+  position: relative;
+}
+
+.underButtonArea {
+  bottom: 0;
+  width: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mapContainer {
+  width: 500px;
+  height: 270px;
+  border: var(--border-size) solid var(--color-line-black);
+  margin-bottom: 20px;
+}

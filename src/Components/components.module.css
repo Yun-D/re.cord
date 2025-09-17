@@ -8,6 +8,9 @@
   box-shadow: 3px 3px 0px var(--color-line-black);
   cursor: pointer;
 }
+.longButton {
+  width: 100%;
+}
 .round {
   width: 74px;
   height: 74px;
