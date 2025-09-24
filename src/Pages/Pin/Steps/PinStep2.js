@@ -11,7 +11,7 @@ const PinStep2 = ({ nextStep }) => {
   return (
     <div className="contentAlign">
       <div id="map" className="mapContainer">
-        <KakaoMap />
+        <KakaoMap lat={33.450701} lng={126.570667} />
       </div>
 
       <SearchLocaItem onClick={nextStep} />

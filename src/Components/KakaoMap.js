@@ -2,11 +2,11 @@ import React, { useEffect, useRef } from "react";
 
 const { kakao } = window;
 
-const KakaoMap = () => {
+const KakaoMap = ({ lat, lng }) => {
   const container = useRef(null); //지도 컨테이너 접근
 
   useEffect(() => {
-    const position = new kakao.maps.LatLng(33.450701, 126.570667); //지도의 중심좌표
+    const position = new kakao.maps.LatLng(lat, lng); //지도의 중심좌표
     const options = {
       center: position,
       level: 3, //지도의 확대 레벨
@@ -17,7 +17,7 @@ const KakaoMap = () => {
       position: position,
     });
     marker.setMap(map);
-  }, []);
+  }, [lat, lng]);
 
   return (
     <div style={{ width: "500px", height: "270px" }} ref={container}></div>
