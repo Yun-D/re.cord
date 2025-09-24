@@ -17,8 +17,6 @@
 }
 
 .mapContainer {
-  width: 500px;
-  height: 270px;
   border: var(--border-size) solid var(--color-line-black);
   margin-bottom: 20px;
 }

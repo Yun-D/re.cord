@@ -5,11 +5,14 @@ import "../AddPin.css";
 
 import SearchLocaItem from "../../../Components/SearchLocaItem";
 import { Link } from "react-router-dom";
+import KakaoMap from "../../../Components/KakaoMap";
 
 const PinStep2 = ({ nextStep }) => {
   return (
     <div className="contentAlign">
-      <div className="mapContainer" />
+      <div id="map" className="mapContainer">
+        <KakaoMap />
+      </div>
 
       <SearchLocaItem onClick={nextStep} />
       <div className="content-gap" />
