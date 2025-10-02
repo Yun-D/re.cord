@@ -2,15 +2,15 @@ import React from "react";
 import { ReactComponent as IcnLoca } from "../Assets/pin.svg";
 import styles from "../Components/components.module.css";
 
-const SearchLocaItem = ({ onClick }) => {
+const SearchLocaItem = ({ onClick, place, address }) => {
   return (
     <div className={styles.s_listContainer} onClick={onClick}>
       <IcnLoca className={styles.grayIcon} />
       <div className={styles.textWrapper}>
         <div className="text-subtitle" style={{ margin: 0 }}>
-          야옹 가챠
+          {place}
         </div>
-        <div className="text-plain">주소주소주소 주소구 주소주로 232</div>
+        <div className="text-plain">{address}</div>
       </div>
     </div>
   );
