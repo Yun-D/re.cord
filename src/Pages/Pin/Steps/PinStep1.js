@@ -89,7 +89,7 @@ const PinStep1 = ({ nextStep }) => {
         </form>
       </div>
       {error && <p style={{ color: "red" }}>{error}</p>} {/* 에러메시지 출력 */}
-      <ul>
+      <ul style={{ padding: "0 0 0 10px" }}>
         {places.map((place) => (
           <SearchLocaItem
             key={place.id}
