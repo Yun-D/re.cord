@@ -5,7 +5,7 @@ import styles from "../../../Components/components.module.css";
 import "../AddPin.css";
 import { useNavigate } from "react-router-dom";
 
-const PinStepFinal = () => {
+const PinStepFinal = ({ pinData }) => {
   const navigate = useNavigate();
 
   const handleAddPlace = () => {
@@ -25,9 +25,9 @@ const PinStepFinal = () => {
 
         <div className={styles.textWrapper} style={{ marginLeft: 20 }}>
           <div className="text-subtitle" style={{ margin: 0 }}>
-            야옹 가챠
+            {pinData.place_name}
           </div>
-          <div className="text-plain">주소주소주소 주소구 주소주로 232</div>
+          <div className="text-plain">{pinData.address}</div>
         </div>
       </div>
 

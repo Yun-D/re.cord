@@ -9,7 +9,7 @@ import SearchLocaItem from "../../../Components/SearchLocaItem";
 
 const { kakao } = window;
 
-const PinStep1 = ({ nextStep }) => {
+const PinStep1 = ({ setPinData, nextStep }) => {
   const [keyword, setKeyword] = useState(""); // 검색어
   const [places, setPlaces] = useState([]); // 검색 결과
   const [error, setError] = useState(""); // 에러메시지 상태관리
@@ -93,7 +93,15 @@ const PinStep1 = ({ nextStep }) => {
         {places.map((place) => (
           <SearchLocaItem
             key={place.id}
-            onClick={nextStep}
+            onClick={() => {
+              setPinData({
+                place_name: place.place_name,
+                address: place.road_address_name || place.address_name,
+                lat: place.y,
+                lng: place.x,
+              });
+              nextStep();
+            }}
             place={place.place_name}
             address={place.road_address_name || place.address_name}
           />

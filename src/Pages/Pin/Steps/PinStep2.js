@@ -7,14 +7,14 @@ import SearchLocaItem from "../../../Components/SearchLocaItem";
 import { Link } from "react-router-dom";
 import KakaoMap from "../../../Components/KakaoMap";
 
-const PinStep2 = ({ nextStep }) => {
+const PinStep2 = ({ pinData, nextStep }) => {
   return (
     <div className="contentAlign">
       <div id="map" className="mapContainer">
-        <KakaoMap lat={33.450701} lng={126.570667} />
+        <KakaoMap lat={pinData.lat} lng={pinData.lng} />
       </div>
 
-      <SearchLocaItem onClick={nextStep} />
+      <SearchLocaItem place={pinData.place_name} address={pinData.address} />
       <div className="content-gap" />
 
       <div className="underButtonArea">
