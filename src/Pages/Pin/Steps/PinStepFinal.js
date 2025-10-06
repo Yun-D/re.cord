@@ -1,5 +1,5 @@
 // 핀 만들기 3단계 (메모 추가, 최종 등록) -------------------------------
-import React from "react";
+import React, { useState } from "react";
 import ImageFrame from "../../../Components/ImageFrame";
 import styles from "../../../Components/components.module.css";
 import "../AddPin.css";
@@ -7,10 +7,20 @@ import { useNavigate } from "react-router-dom";
 
 const PinStepFinal = ({ pinData }) => {
   const navigate = useNavigate();
+  const user = localStorage.getItem("anonUserid");
+  const [description, setDescription] = useState("");
 
-  const handleAddPlace = () => {
-    // TODO: 장소 등록 로직 구현. 기존 페이지 데이터 받아와 링크도 수정해야함
-    navigate("/recordDetail/");
+  const handleAddPlace = async (e) => {
+    const finalData = { ...pinData, pinDesc: description };
+
+    e.preventDefault();
+
+    // try {
+    //   await addPin(user, finalData);
+    //   //navigate("/recordDetail/");
+    // } catch (error) {
+    //   console.error("Error adding record: ", error);
+    // }
   };
 
   return (
@@ -34,8 +44,8 @@ const PinStepFinal = ({ pinData }) => {
       <div className="content-gap" />
       <p className="text-subtitle">메모</p>
       <textarea
-        // value={description}
-        // onChange={(e) => setDescription(e.target.value)}
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
         placeholder=" 장소에 대해 기록하고 싶은 내용을 적어주세요."
         className="textareaBox"
       />

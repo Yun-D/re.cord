@@ -28,7 +28,6 @@ const AddRecord = () => {
       recordId: Date.now().toString(),
       name: name,
       description: description,
-      pins: [],
     };
     try {
       await addRecord(user, newRecord);
