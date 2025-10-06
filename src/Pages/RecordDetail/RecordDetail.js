@@ -19,22 +19,22 @@ const RecordDetail = () => {
   const [currRecord, setCurrRecords] = useState([]); // 현재 레코드 정보
   const [pins, setPins] = useState([]);
 
-  const { recordId } = useParams();
+  const { recordId } = useParams(); // URL 파라미터에서 recordId 추출
   useEffect(() => {
     // const auth = getAuth();
     // const user = auth.currentUser;
     const user = localStorage.getItem("anonUserid");
 
-    const loadUserRecords = async () => {
+    const loadUserPins = async () => {
       try {
-        const data = await fetchRecords(user);
-        const record = data.find((item) => item.recordId === recordId);
+        const data = await fetchRecords(user); // 모든 레코드 불러오기
+        const record = data.find((item) => item.recordId === recordId); // 현재 레코드 찾기
         setCurrRecords(record);
-        console.log(record);
-        if (record && record.pins.length > 0) {
+
+        if (record && pins.length > 0) {
+          // TODO: pins 데이터 가져와서 상태 업뎃, if문 조건 수정 필요
           setIsEmpty(false);
           setPins(record.pins);
-          console.log("핀 목록 : ", pins);
         } else {
           setPins([]);
         }
@@ -45,7 +45,7 @@ const RecordDetail = () => {
       }
     };
 
-    loadUserRecords();
+    loadUserPins();
   }, [recordId]);
 
   return (
@@ -82,7 +82,7 @@ const RecordDetail = () => {
         </div>
       )}
 
-      <Link to="/addPin">
+      <Link to="/addPin" state={{ recordId: recordId }}>
         <FloatingButton>
           <IcnEdit />
         </FloatingButton>

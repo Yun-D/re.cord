@@ -5,6 +5,8 @@ import styles from "../../../Components/components.module.css";
 import "../AddPin.css";
 import { useNavigate } from "react-router-dom";
 
+import { addPin } from "../../../firebase/firestore/pinsCRUD";
+
 const PinStepFinal = ({ pinData }) => {
   const navigate = useNavigate();
   const user = localStorage.getItem("anonUserid");
@@ -12,15 +14,14 @@ const PinStepFinal = ({ pinData }) => {
 
   const handleAddPlace = async (e) => {
     const finalData = { ...pinData, pinDesc: description };
-
     e.preventDefault();
 
-    // try {
-    //   await addPin(user, finalData);
-    //   //navigate("/recordDetail/");
-    // } catch (error) {
-    //   console.error("Error adding record: ", error);
-    // }
+    try {
+      await addPin(user, finalData, finalData.recordId);
+      navigate(`/recordDetail/` + finalData.recordId);
+    } catch (error) {
+      console.error("Error adding pin: ", error);
+    }
   };
 
   return (
