@@ -37,7 +37,6 @@ const RecordDetail = () => {
         setCurrRecords(record);
 
         const pinsData = await fetchPins(user, recordId); // 현재 레코드의 핀 불러오기
-        console.log("Pins Data:", pinsData);
 
         if (record && pinsData.length > 0) {
           setIsEmpty(false);
@@ -95,7 +94,7 @@ const RecordDetail = () => {
               marginTop: 20,
             }}
           >
-            <KakaoMap pins={pins} />
+            <KakaoMap pins={pins} isMultiple={true} />
           </div>
 
           {pins.map((pin) => (

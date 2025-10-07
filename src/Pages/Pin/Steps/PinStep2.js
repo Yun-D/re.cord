@@ -11,7 +11,7 @@ const PinStep2 = ({ pinData, nextStep }) => {
   return (
     <div className="contentAlign">
       <div id="map" className="mapContainer">
-        <KakaoMap lat={pinData.lat} lng={pinData.lng} />
+        <KakaoMap pins={pinData} isMultiple={false} />
       </div>
 
       <SearchLocaItem place={pinData.place_name} address={pinData.address} />
