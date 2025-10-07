@@ -5,8 +5,10 @@ import { ReactComponent as IcnFolder } from "../../Assets/folder.svg";
 import { ReactComponent as IcnEdit } from "../../Assets/edit.svg";
 import "./RecordDetail.css";
 import { Link, useParams } from "react-router-dom";
-import { fetchRecords } from "../../firebase/firestore/recordsCRUD";
 import TagListItem from "../../Components/TagListItem";
+
+import { fetchRecords } from "../../firebase/firestore/recordsCRUD";
+import { fetchPins } from "../../firebase/firestore/pinsCRUD";
 
 const RecordDetail = () => {
   const dummy = {
@@ -27,14 +29,16 @@ const RecordDetail = () => {
 
     const loadUserPins = async () => {
       try {
-        const data = await fetchRecords(user); // 모든 레코드 불러오기
+        const data = await fetchRecords(user, recordId); // 모든 레코드 불러오기
         const record = data.find((item) => item.recordId === recordId); // 현재 레코드 찾기
         setCurrRecords(record);
 
-        if (record && pins.length > 0) {
-          // TODO: pins 데이터 가져와서 상태 업뎃, if문 조건 수정 필요
+        const pinsData = await fetchPins(user, recordId); // 현재 레코드의 핀 불러오기
+        console.log("Pins Data:", pinsData);
+
+        if (record && pinsData.length > 0) {
           setIsEmpty(false);
-          setPins(record.pins);
+          setPins(pinsData);
         } else {
           setPins([]);
         }
@@ -51,6 +55,7 @@ const RecordDetail = () => {
   return (
     <div>
       {/* 상단, 레코드 정보 부분 영역 */}
+
       <div className="row-direction">
         <div className="title-container">
           <IcnFolder className="d-icon" />
@@ -66,6 +71,8 @@ const RecordDetail = () => {
       </div>
       {/* -------------------- */}
 
+      {/* TODO: 지도 영역 추가 */}
+
       {isEmpty ? (
         <div className="container">
           <div className="content-align">
@@ -78,7 +85,13 @@ const RecordDetail = () => {
         </div>
       ) : (
         <div>
-          <TagListItem />
+          {pins.map((pin) => (
+            <TagListItem
+              key={pin.pinId}
+              shop={pin.place_name}
+              recentDate={"2025.10.07"}
+            />
+          ))}
         </div>
       )}
 

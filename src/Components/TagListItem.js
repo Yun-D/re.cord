@@ -15,7 +15,7 @@ const TagListItem = ({ shop, recentDate }) => {
     <div className={`${styles.listItem} ${styles.tagItemBtn}`}>
       <ImageFrame />
       <div className={styles.textArea}>
-        <h3 className={styles.dataTxt}>{dummyData.shop}</h3>
+        <h3 className={styles.dataTxt}>{shop}</h3>
 
         <div
           style={{
@@ -30,7 +30,7 @@ const TagListItem = ({ shop, recentDate }) => {
         </div>
 
         <div style={{ margin: "4px" }} />
-        <p className={styles.memoTxt}>최근 방문일 : {dummyData.recentDate}</p>
+        <p className={styles.memoTxt}>최근 방문일 : {recentDate}</p>
       </div>
     </div>
   );

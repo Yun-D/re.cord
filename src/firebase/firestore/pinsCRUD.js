@@ -1,4 +1,4 @@
-import { doc, collection, setDoc } from "firebase/firestore";
+import { doc, collection, setDoc, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 
 async function addPin(userId, newPin, recordId) {
@@ -12,4 +12,24 @@ async function addPin(userId, newPin, recordId) {
   console.log("Pin added successfully");
 }
 
-export { addPin };
+async function fetchPins(userId, recordId) {
+  //TODO: 수정할 것
+  const recordsRef = collection(
+    db,
+    "users",
+    userId,
+    "records",
+    recordId,
+    "pins"
+  );
+  const recordSnap = await getDocs(recordsRef);
+
+  if (!recordSnap.empty) {
+    return recordSnap.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  } else {
+    console.log("No such document!");
+    return [];
+  }
+}
+
+export { addPin, fetchPins };
