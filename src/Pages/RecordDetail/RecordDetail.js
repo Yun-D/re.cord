@@ -9,6 +9,7 @@ import TagListItem from "../../Components/TagListItem";
 
 import { fetchRecords } from "../../firebase/firestore/recordsCRUD";
 import { fetchPins } from "../../firebase/firestore/pinsCRUD";
+import KakaoMap from "../../Components/KakaoMap";
 
 const RecordDetail = () => {
   const dummy = {
@@ -18,6 +19,7 @@ const RecordDetail = () => {
   };
 
   const [isEmpty, setIsEmpty] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [currRecord, setCurrRecords] = useState([]); // 현재 레코드 정보
   const [pins, setPins] = useState([]);
 
@@ -29,6 +31,7 @@ const RecordDetail = () => {
 
     const loadUserPins = async () => {
       try {
+        setLoading(true);
         const data = await fetchRecords(user, recordId); // 모든 레코드 불러오기
         const record = data.find((item) => item.recordId === recordId); // 현재 레코드 찾기
         setCurrRecords(record);
@@ -46,12 +49,15 @@ const RecordDetail = () => {
         console.error("Error fetching records: ", error);
         setIsEmpty(true);
         setPins([]); // 에러 시 핀 배열 초기화
+      } finally {
+        setLoading(false);
       }
     };
 
     loadUserPins();
   }, [recordId]);
 
+  if (loading) return <div>로딩중...</div>;
   return (
     <div>
       {/* 상단, 레코드 정보 부분 영역 */}
@@ -64,14 +70,12 @@ const RecordDetail = () => {
 
         <div className="dataSummary">
           <p className="d-icon-sm">📍</p>
-          <p className="no-margin">{dummy.pinCount}</p>
+          <p className="no-margin">{pins.length}</p>
           <p className="d-icon-sm">✏️</p>
           <p className="no-margin">{dummy.memoCount}</p>
         </div>
       </div>
       {/* -------------------- */}
-
-      {/* TODO: 지도 영역 추가 */}
 
       {isEmpty ? (
         <div className="container">
@@ -85,6 +89,15 @@ const RecordDetail = () => {
         </div>
       ) : (
         <div>
+          <div
+            style={{
+              display: "flex",
+              marginTop: 20,
+            }}
+          >
+            <KakaoMap pins={pins} />
+          </div>
+
           {pins.map((pin) => (
             <TagListItem
               key={pin.pinId}
