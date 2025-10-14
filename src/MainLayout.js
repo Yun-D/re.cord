@@ -26,12 +26,21 @@ const MainLayout = () => {
   }; //타이틀 헤더를 사용하는 페이지 & 제목
   const title = titleHeaderPages[thisLocation.pathname] || "";
   const isTitleHeader = !!title; //title이 존재하지 않으면 false
-  const hideNav = thisLocation.pathname === "/greeting"; //네비게이션 바 숨김 설정
+
+  // 특정 페이지에서 UI 숨기기
+  const hideNav = thisLocation.pathname === "/greeting"; //네비게이션 바
+  const hideAddPin = thisLocation.pathname === "/addPin"; //장소추가 멀티스텝폼
 
   return (
     <div className="app-container">
       <div className="box-wrapper">
-        {isTitleHeader ? <TitleHeader title={title} /> : <Header />}
+        {!hideAddPin ? (
+          isTitleHeader ? (
+            <TitleHeader title={title} />
+          ) : (
+            <Header />
+          )
+        ) : null}
         <div className="content">
           <Routes>
             <Route path="/" element={<Navigate to="/greeting" />} />

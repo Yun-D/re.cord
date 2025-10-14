@@ -4,6 +4,7 @@ import PinStep1 from "./Steps/PinStep1";
 import PinStep2 from "./Steps/PinStep2";
 import PinStepFinal from "./Steps/PinStepFinal";
 import { useLocation } from "react-router-dom";
+import TitleHeader from "../../Components/TitleHeader";
 
 const steps = [PinStep1, PinStep2, PinStepFinal];
 
@@ -21,6 +22,15 @@ const AddPin = () => {
 
   return (
     <>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <TitleHeader title={"장소 추가"} prevStep={prevStep} step={currStep} />
+      </div>
+
       <StepComponent
         pinData={pinData}
         setPinData={setPinData}

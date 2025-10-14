@@ -13,7 +13,6 @@ async function addPin(userId, newPin, recordId) {
 }
 
 async function fetchPins(userId, recordId) {
-  //TODO: 수정할 것
   const recordsRef = collection(
     db,
     "users",
