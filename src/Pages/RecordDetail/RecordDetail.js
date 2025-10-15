@@ -20,7 +20,7 @@ const RecordDetail = () => {
 
   const [isEmpty, setIsEmpty] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [currRecord, setCurrRecords] = useState([]); // 현재 레코드 정보
+  const [currRecord, setCurrRecord] = useState([]); // 현재 레코드 정보
   const [pins, setPins] = useState([]);
 
   const { recordId } = useParams(); // URL 파라미터에서 recordId 추출
@@ -34,7 +34,7 @@ const RecordDetail = () => {
         setLoading(true);
         const data = await fetchRecords(user, recordId); // 모든 레코드 불러오기
         const record = data.find((item) => item.recordId === recordId); // 현재 레코드 찾기
-        setCurrRecords(record);
+        setCurrRecord(record);
 
         const pinsData = await fetchPins(user, recordId); // 현재 레코드의 핀 불러오기
 
@@ -98,11 +98,18 @@ const RecordDetail = () => {
           </div>
 
           {pins.map((pin) => (
-            <TagListItem
+            <Link
+              to={`/pinDetail/${pin.pinId}`}
+              state={{ currPin: pin, recordId: recordId }}
               key={pin.pinId}
-              shop={pin.place_name}
-              recentDate={"2025.10.07"}
-            />
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <TagListItem
+                key={pin.pinId}
+                shop={pin.place_name}
+                recentDate={"2025.10.07"}
+              />
+            </Link>
           ))}
         </div>
       )}

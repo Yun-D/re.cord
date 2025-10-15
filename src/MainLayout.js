@@ -16,6 +16,7 @@ import RecordDetail from "./Pages/RecordDetail/RecordDetail";
 import AddPin from "./Pages/Pin/AddPin";
 
 import Wish from "./Pages/Wish";
+import PinDetail from "./Pages/Pin/PinDetail";
 
 const MainLayout = () => {
   const thisLocation = useLocation(); //현재 위치
@@ -57,6 +58,7 @@ const MainLayout = () => {
             <Route path="/addRecord" element={<AddRecord />} />
             <Route path="/recordDetail/:recordId" element={<RecordDetail />} />
             <Route path="/addPin" element={<AddPin />} />
+            <Route path="/pinDetail/:pinId" element={<PinDetail />} />
             <Route path="/wish" element={<Wish />} />
           </Routes>
         </div>
