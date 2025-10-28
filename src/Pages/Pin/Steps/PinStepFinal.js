@@ -48,7 +48,7 @@ const PinStepFinal = ({ pinData }) => {
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         placeholder=" 장소에 대해 기록하고 싶은 내용을 적어주세요."
-        className="textareaBox"
+        className="textareaBox_sm"
       />
 
       <div className="underButtonArea">
