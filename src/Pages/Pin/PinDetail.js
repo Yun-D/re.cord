@@ -58,6 +58,19 @@ const PinDetail = () => {
           </p>
         </div>
       </div>
+      <div
+        style={{
+          border: "1px solid black",
+          width: "100%",
+          height: "64px",
+          marginTop: "8px",
+          padding: "10px",
+          overflow: "auto",
+          wordWrap: "break-word",
+        }}
+      >
+        {pinData.pinDesc}
+      </div>
 
       {isEmpty ? (
         <div className="container">
@@ -73,7 +86,14 @@ const PinDetail = () => {
         <div></div>
       )}
 
-      <Link to="/addMemo" state={{ pinId: pinData.pinId }}>
+      <Link
+        to="/addMemo"
+        state={{
+          place_name: pinData.place_name,
+          address: pinData.address,
+          pinId: pinData.pinId,
+        }}
+      >
         <FloatingButton>
           <IcnEdit />
         </FloatingButton>

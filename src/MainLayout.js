@@ -14,9 +14,9 @@ import Records from "./Pages/Records";
 import AddRecord from "./Pages/AddRecord";
 import RecordDetail from "./Pages/RecordDetail/RecordDetail";
 import AddPin from "./Pages/Pin/AddPin";
-
 import Wish from "./Pages/Wish";
 import PinDetail from "./Pages/Pin/PinDetail";
+import AddMemo from "./Pages/Pin/AddMemo";
 
 const MainLayout = () => {
   const thisLocation = useLocation(); //현재 위치
@@ -24,6 +24,7 @@ const MainLayout = () => {
     "/addRecord": "레코드 생성",
     "/recordDetail": " ",
     "/addPin": "장소 추가",
+    "/addMemo": "메모 추가",
   }; //타이틀 헤더를 사용하는 페이지 & 제목
   const title = titleHeaderPages[thisLocation.pathname] || "";
   const isTitleHeader = !!title; //title이 존재하지 않으면 false
@@ -59,6 +60,7 @@ const MainLayout = () => {
             <Route path="/recordDetail/:recordId" element={<RecordDetail />} />
             <Route path="/addPin" element={<AddPin />} />
             <Route path="/pinDetail/:pinId" element={<PinDetail />} />
+            <Route path="/addMemo" element={<AddMemo />} />
             <Route path="/wish" element={<Wish />} />
           </Routes>
         </div>
