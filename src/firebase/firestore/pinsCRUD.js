@@ -31,4 +31,24 @@ async function fetchPins(userId, recordId) {
   }
 }
 
-export { addPin, fetchPins };
+async function addMemo(userId, recordId, pinId, newMemo) {
+  const memoRef = collection(
+    db,
+    "users",
+    userId,
+    "records",
+    recordId,
+    "pins",
+    pinId,
+    "memos"
+  );
+  const newMemoDocRef = doc(memoRef);
+
+  await setDoc(newMemoDocRef, {
+    ...newMemo,
+    memoId: newMemoDocRef.id,
+  });
+  console.log("Memo added successfully");
+}
+
+export { addPin, fetchPins, addMemo };

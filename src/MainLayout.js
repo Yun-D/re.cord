@@ -59,7 +59,10 @@ const MainLayout = () => {
             <Route path="/addRecord" element={<AddRecord />} />
             <Route path="/recordDetail/:recordId" element={<RecordDetail />} />
             <Route path="/addPin" element={<AddPin />} />
-            <Route path="/pinDetail/:pinId" element={<PinDetail />} />
+            <Route
+              path="/record/:recordId/pinDetail/:pinId"
+              element={<PinDetail />}
+            />
             <Route path="/addMemo" element={<AddMemo />} />
             <Route path="/wish" element={<Wish />} />
           </Routes>

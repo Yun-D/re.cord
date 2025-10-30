@@ -3,12 +3,17 @@ import styles from "../../Components/components.module.css";
 import ImageFrame from "../../Components/ImageFrame";
 import { useLocation, useNavigate } from "react-router-dom";
 import StarRating from "../../Components/StarRating";
+import { addMemo } from "../../firebase/firestore/pinsCRUD";
 
 const AddMemo = () => {
   const [title, setTitle] = useState("");
   const [review, setReview] = useState("");
   const [rating, setRating] = useState(3); //기본값은 3점
   const [date, setDate] = useState("");
+
+  // const auth = getAuth();
+  // const user = auth.currentUser;
+  const user = localStorage.getItem("anonUserid");
 
   const navigate = useNavigate();
   const currPinData = useLocation().state;
@@ -20,17 +25,18 @@ const AddMemo = () => {
     }
 
     const finalData = {
-      id: currPinData.pinId,
+      date: date,
       title: title,
       rating: rating,
       review: review,
     };
-    console.log("finalData", finalData);
     e.preventDefault();
 
     try {
-      //await addPin(user, finalData, finalData.recordId);
-      //navigate(`/recordDetail/` + finalData.recordId);
+      await addMemo(user, currPinData.recordId, currPinData.pinId, finalData);
+      navigate(
+        `/record/${currPinData.recordId}/pinDetail/${currPinData.pinId}`
+      );
     } catch (error) {
       console.error("Error adding pin: ", error);
     }

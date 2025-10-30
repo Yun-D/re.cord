@@ -2,18 +2,19 @@ import React, { useEffect, useState } from "react";
 
 import { ReactComponent as IcnFolder } from "../../Assets/folder_open.svg";
 import { ReactComponent as IcnEdit } from "../../Assets/edit.svg";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { fetchRecords } from "../../firebase/firestore/recordsCRUD";
 import "../RecordDetail/RecordDetail.css";
 import FloatingButton from "../../Components/FloatingButton";
+import { fetchPins } from "../../firebase/firestore/pinsCRUD";
 
 const PinDetail = () => {
+  const params = useParams();
+
   const [isEmpty, setIsEmpty] = useState(true);
   const [loading, setLoading] = useState(false);
   const [currRecordName, setCurrRecordName] = useState(""); // 현재 레코드 이름
-
-  const location = useLocation();
-  const pinData = location.state.currPin;
+  const [pinData, setPinData] = useState("");
 
   useEffect(() => {
     // const auth = getAuth();
@@ -24,14 +25,19 @@ const PinDetail = () => {
       try {
         setLoading(true);
 
-        const data = await fetchRecords(user); // 모든 레코드 불러오기
-        const recordId = pinData.recordId;
-        const currRecord = data.find((item) => item.recordId === recordId);
+        // 레코드 데이터 페칭 FIXME: 나중에 이부분은 리팩토링 필요(중복제거)
+        const rData = await fetchRecords(user); // 모든 레코드 불러오기
+        const recordId = params.recordId;
+        const currRecord = rData.find((item) => item.recordId === recordId);
         setCurrRecordName(currRecord.name);
 
-        console.log("currRecord", pinData);
+        // 핀 데이터 페칭
+        const pData = await fetchPins(user, recordId); // 현재 레코드의 핀 불러오기
+        const currPin = pData.find((item) => item.pinId === params.pinId);
+        setPinData(currPin);
+        console.log("pData", currPin);
 
-        if (location.length > 0) {
+        if (pData.length > 0) {
           setIsEmpty(false);
         } else {
           setIsEmpty(true);
@@ -45,7 +51,7 @@ const PinDetail = () => {
     };
 
     loadUserMemos();
-  }, [location, pinData]);
+  }, []);
 
   if (loading) return <div>로딩중...</div>;
   return (
@@ -91,6 +97,7 @@ const PinDetail = () => {
         state={{
           place_name: pinData.place_name,
           address: pinData.address,
+          recordId: pinData.recordId,
           pinId: pinData.pinId,
         }}
       >
