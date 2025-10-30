@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "../../Components/components.module.css";
 import ImageFrame from "../../Components/ImageFrame";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import StarRating from "../../Components/StarRating";
 
 const AddMemo = () => {
@@ -10,19 +10,31 @@ const AddMemo = () => {
   const [rating, setRating] = useState(3); //기본값은 3점
   const [date, setDate] = useState("");
 
+  const navigate = useNavigate();
   const currPinData = useLocation().state;
 
-  //   const handleAddPlace = async (e) => {
-  //     const finalData = { ...currPinData, pinDesc: description };
-  //     e.preventDefault();
+  const handleAddMemo = async (e) => {
+    if (!date.trim() || !title.trim() || !review.trim()) {
+      alert("항목을 채워주세요.");
+      return;
+    }
 
-  //     try {
-  //       await addPin(user, finalData, finalData.recordId);
-  //       navigate(`/recordDetail/` + finalData.recordId);
-  //     } catch (error) {
-  //       console.error("Error adding pin: ", error);
-  //     }
-  //   };
+    const finalData = {
+      id: currPinData.pinId,
+      title: title,
+      rating: rating,
+      review: review,
+    };
+    console.log("finalData", finalData);
+    e.preventDefault();
+
+    try {
+      //await addPin(user, finalData, finalData.recordId);
+      //navigate(`/recordDetail/` + finalData.recordId);
+    } catch (error) {
+      console.error("Error adding pin: ", error);
+    }
+  };
 
   return (
     <>
@@ -49,19 +61,27 @@ const AddMemo = () => {
           </div>
         </div>
 
-        <div className="content-gap" />
         <div
           style={{
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             width: "100%",
+            padding: "25px 25px 25px 0",
           }}
         >
           <StarRating value={rating} onChange={setRating} />
         </div>
 
-        <div className="content-gap" />
+        <p className="text-subtitle">방문일</p>
+        <input
+          type="date"
+          className="inputbox"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+          style={{ marginBottom: "20px" }}
+        />
+
         <p className="text-subtitle">제목</p>
         <input
           value={title}
@@ -70,6 +90,7 @@ const AddMemo = () => {
           className="inputbox"
           style={{ marginBottom: "20px" }}
         />
+
         <p className="text-subtitle">리뷰 작성</p>
         <textarea
           value={review}
@@ -81,7 +102,7 @@ const AddMemo = () => {
         <div className="underButtonArea">
           <button
             className={`${styles.button} ${styles.longButton}`}
-            //onClick={handleAddPlace}
+            onClick={handleAddMemo}
           >
             리뷰 등록
           </button>
