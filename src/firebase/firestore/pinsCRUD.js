@@ -51,4 +51,25 @@ async function addMemo(userId, recordId, pinId, newMemo) {
   console.log("Memo added successfully");
 }
 
-export { addPin, fetchPins, addMemo };
+async function fetchMemos(userId, recordId, pinId) {
+  const memoRef = collection(
+    db,
+    "users",
+    userId,
+    "records",
+    recordId,
+    "pins",
+    pinId,
+    "memos"
+  );
+  const memoSnap = await getDocs(memoRef);
+
+  if (!memoSnap.empty) {
+    return memoSnap.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  } else {
+    console.log("No such document!");
+    return [];
+  }
+}
+
+export { addPin, fetchPins, addMemo, fetchMemos };

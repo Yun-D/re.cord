@@ -6,15 +6,18 @@ import { Link, useParams } from "react-router-dom";
 import { fetchRecords } from "../../firebase/firestore/recordsCRUD";
 import "../RecordDetail/RecordDetail.css";
 import FloatingButton from "../../Components/FloatingButton";
-import { fetchPins } from "../../firebase/firestore/pinsCRUD";
+import { fetchMemos, fetchPins } from "../../firebase/firestore/pinsCRUD";
+import ReviewMemoCard from "../../Components/ReviewMemoCard";
 
 const PinDetail = () => {
   const params = useParams();
 
   const [isEmpty, setIsEmpty] = useState(true);
   const [loading, setLoading] = useState(false);
+
   const [currRecordName, setCurrRecordName] = useState(""); // 현재 레코드 이름
   const [pinData, setPinData] = useState("");
+  const [pinMemos, setPinMemos] = useState(null);
 
   useEffect(() => {
     // const auth = getAuth();
@@ -35,9 +38,13 @@ const PinDetail = () => {
         const pData = await fetchPins(user, recordId); // 현재 레코드의 핀 불러오기
         const currPin = pData.find((item) => item.pinId === params.pinId);
         setPinData(currPin);
-        console.log("pData", currPin);
 
-        if (pData.length > 0) {
+        // 메모 데이터 페칭
+        const memoData = await fetchMemos(user, recordId, currPin.pinId);
+        setPinMemos(memoData);
+        console.log("memos", pinMemos, memoData);
+
+        if (memoData.length > 0) {
           setIsEmpty(false);
         } else {
           setIsEmpty(true);
@@ -89,7 +96,17 @@ const PinDetail = () => {
           </div>
         </div>
       ) : (
-        <div></div>
+        <div style={{ marginTop: "48px" }}>
+          {pinMemos.map((item) => (
+            <ReviewMemoCard
+              key={item.memoId}
+              date={item.date}
+              title={item.title}
+              review={item.review}
+              rating={item.rating}
+            />
+          ))}
+        </div>
       )}
 
       <Link

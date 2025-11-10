@@ -69,6 +69,24 @@
 
 /* ----------------------------------------- */
 
+/* ReviewMemoCard -------------------------- */
+.r_listContainer {
+  border-radius: 3px;
+  border: var(--border-size) solid var(--color-line-black);
+  margin-bottom: 8px;
+  padding: 12px;
+  flex-direction: row;
+  display: flex;
+}
+
+.r_memoTxt {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  margin-top: 20px;
+}
+
+/* ----------------------------------------- */
+
 /* imageFrame ------------------------------ */
 .outerSquare {
   background-color: white;
