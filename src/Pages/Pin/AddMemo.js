@@ -35,7 +35,7 @@ const AddMemo = () => {
     try {
       await addMemo(user, currPinData.recordId, currPinData.pinId, finalData);
       navigate(
-        `/record/${currPinData.recordId}/pinDetail/${currPinData.pinId}`
+        `/recordDetail/${currPinData.recordId}/pinDetail/${currPinData.pinId}`
       );
     } catch (error) {
       console.error("Error adding pin: ", error);

@@ -26,7 +26,12 @@ const MainLayout = () => {
     "/addPin": "장소 추가",
     "/addMemo": "메모 추가",
   }; //타이틀 헤더를 사용하는 페이지 & 제목
-  const title = titleHeaderPages[thisLocation.pathname] || "";
+
+  // 해당 경로가 titleHeaderPages의 키 중 하나로 시작하는지 확인
+  const matchedKey = Object.keys(titleHeaderPages).find((key) =>
+    thisLocation.pathname.startsWith(key)
+  );
+  const title = titleHeaderPages[matchedKey] || "";
   const isTitleHeader = !!title; //title이 존재하지 않으면 false
 
   // 특정 페이지에서 UI 숨기기
@@ -60,7 +65,7 @@ const MainLayout = () => {
             <Route path="/recordDetail/:recordId" element={<RecordDetail />} />
             <Route path="/addPin" element={<AddPin />} />
             <Route
-              path="/record/:recordId/pinDetail/:pinId"
+              path="/recordDetail/:recordId/pinDetail/:pinId"
               element={<PinDetail />}
             />
             <Route path="/addMemo" element={<AddMemo />} />

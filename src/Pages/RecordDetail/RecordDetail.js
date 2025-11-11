@@ -99,7 +99,7 @@ const RecordDetail = () => {
 
           {pins.map((pin) => (
             <Link
-              to={`/record/${recordId}/pinDetail/${pin.pinId}`}
+              to={`/recordDetail/${recordId}/pinDetail/${pin.pinId}`}
               //state={{ currPin: pin, recordId: recordId }}
               key={pin.pinId}
               style={{ textDecoration: "none", color: "inherit" }}
