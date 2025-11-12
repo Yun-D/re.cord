@@ -42,7 +42,6 @@ const PinDetail = () => {
         // 메모 데이터 페칭
         const memoData = await fetchMemos(user, recordId, currPin.pinId);
         setPinMemos(memoData);
-        console.log("memos", pinMemos, memoData);
 
         if (memoData.length > 0) {
           setIsEmpty(false);
@@ -100,6 +99,9 @@ const PinDetail = () => {
           {pinMemos.map((item) => (
             <ReviewMemoCard
               key={item.memoId}
+              memoId={item.memoId}
+              pinId={pinData.pinId}
+              recordId={pinData.recordId}
               date={item.date}
               title={item.title}
               review={item.review}

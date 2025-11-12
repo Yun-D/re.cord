@@ -1,7 +1,30 @@
 import React from "react";
 import styles from "./components.module.css";
+import { RiDeleteBin5Fill } from "react-icons/ri";
+import { deleteMemo } from "../firebase/firestore/pinsCRUD";
 
-const ReviewMemoCard = ({ date, title, review, rating }) => {
+const ReviewMemoCard = ({
+  date,
+  title,
+  review,
+  rating,
+  recordId,
+  pinId,
+  memoId,
+}) => {
+  // const auth = getAuth();
+  // const user = auth.currentUser;
+  const user = localStorage.getItem("anonUserid");
+
+  const handleDelete = async () => {
+    try {
+      await deleteMemo(user, recordId, pinId, memoId);
+      console.log("Memo deleted successfully");
+    } catch (error) {
+      console.error("Error deleting memo: ", error);
+    }
+  };
+
   return (
     <div className={styles.r_listContainer}>
       <div
@@ -29,11 +52,22 @@ const ReviewMemoCard = ({ date, title, review, rating }) => {
             <h4 className={styles.dataTxt}>{title}</h4>
           </div>
 
-          <div
-            className={styles.borderBoxTag}
-            style={{ width: "70px", height: "33px" }}
-          >
-            ⭐ {rating}
+          <div className="row-direction" style={{ gap: "10px" }}>
+            <div
+              className={styles.borderBoxTag}
+              style={{ width: "70px", height: "33px" }}
+            >
+              ⭐ {rating}
+            </div>
+            <button
+              className={`${styles.button} ${styles.deleteBtn}`}
+              onClick={handleDelete}
+            >
+              <RiDeleteBin5Fill
+                size={15}
+                style={{ color: `var(--color-line-black)` }}
+              />
+            </button>
           </div>
         </div>
 

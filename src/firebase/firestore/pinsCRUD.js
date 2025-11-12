@@ -1,4 +1,10 @@
-import { doc, collection, setDoc, getDocs } from "firebase/firestore";
+import {
+  doc,
+  collection,
+  setDoc,
+  getDocs,
+  deleteDoc,
+} from "firebase/firestore";
 import { db } from "../firebase";
 
 async function addPin(userId, newPin, recordId) {
@@ -72,4 +78,25 @@ async function fetchMemos(userId, recordId, pinId) {
   }
 }
 
-export { addPin, fetchPins, addMemo, fetchMemos };
+async function deleteMemo(userId, recordId, pinId, memoId) {
+  const memoRef = doc(
+    db,
+    "users",
+    userId,
+    "records",
+    recordId,
+    "pins",
+    pinId,
+    "memos",
+    memoId
+  );
+
+  try {
+    await deleteDoc(memoRef);
+    console.log(`${memoId} 문서 삭제 완료`);
+  } catch (error) {
+    console.error("메모 삭제 중 오류: ", error);
+  }
+}
+
+export { addPin, fetchPins, addMemo, fetchMemos, deleteMemo };
