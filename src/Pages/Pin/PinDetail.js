@@ -19,43 +19,48 @@ const PinDetail = () => {
   const [pinData, setPinData] = useState("");
   const [pinMemos, setPinMemos] = useState(null);
 
-  useEffect(() => {
-    // const auth = getAuth();
-    // const user = auth.currentUser;
-    const user = localStorage.getItem("anonUserid");
+  const loadUserMemos = async () => {
+    try {
+      setLoading(true);
 
-    const loadUserMemos = async () => {
-      try {
-        setLoading(true);
+      // const auth = getAuth();
+      // const user = auth.currentUser;
+      const user = localStorage.getItem("anonUserid");
 
-        // 레코드 데이터 페칭 FIXME: 나중에 이부분은 리팩토링 필요(중복제거)
-        const rData = await fetchRecords(user); // 모든 레코드 불러오기
-        const recordId = params.recordId;
-        const currRecord = rData.find((item) => item.recordId === recordId);
-        setCurrRecordName(currRecord.name);
+      // 레코드 데이터 페칭 FIXME: 나중에 이부분은 리팩토링 필요(중복제거)
+      const rData = await fetchRecords(user); // 모든 레코드 불러오기
+      const recordId = params.recordId;
+      const currRecord = rData.find((item) => item.recordId === recordId);
+      setCurrRecordName(currRecord.name);
 
-        // 핀 데이터 페칭
-        const pData = await fetchPins(user, recordId); // 현재 레코드의 핀 불러오기
-        const currPin = pData.find((item) => item.pinId === params.pinId);
-        setPinData(currPin);
+      // 핀 데이터 페칭
+      const pData = await fetchPins(user, recordId); // 현재 레코드의 핀 불러오기
+      const currPin = pData.find((item) => item.pinId === params.pinId);
+      setPinData(currPin);
 
-        // 메모 데이터 페칭
-        const memoData = await fetchMemos(user, recordId, currPin.pinId);
-        setPinMemos(memoData);
+      // 메모 데이터 페칭
+      const memoData = await fetchMemos(user, recordId, currPin.pinId);
+      setPinMemos(memoData);
 
-        if (memoData.length > 0) {
-          setIsEmpty(false);
-        } else {
-          setIsEmpty(true);
-        }
-      } catch (error) {
-        console.error("Error fetching pins: ", error);
+      if (memoData.length > 0) {
+        setIsEmpty(false);
+      } else {
         setIsEmpty(true);
-      } finally {
-        setLoading(false);
       }
-    };
+    } catch (error) {
+      console.error("Error fetching pins: ", error);
+      setIsEmpty(true);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  // 메모 삭제 후 메모 리스트 다시 불러오기
+  const handleDeleteSuccess = () => {
+    loadUserMemos();
+  };
+
+  useEffect(() => {
     loadUserMemos();
   }, []);
 
@@ -106,6 +111,7 @@ const PinDetail = () => {
               title={item.title}
               review={item.review}
               rating={item.rating}
+              onDeleteSuccess={handleDeleteSuccess} // 삭제 성공 콜백
             />
           ))}
         </div>

@@ -11,6 +11,7 @@ const ReviewMemoCard = ({
   recordId,
   pinId,
   memoId,
+  onDeleteSuccess,
 }) => {
   // const auth = getAuth();
   // const user = auth.currentUser;
@@ -19,6 +20,7 @@ const ReviewMemoCard = ({
   const handleDelete = async () => {
     try {
       await deleteMemo(user, recordId, pinId, memoId);
+      onDeleteSuccess(); // 부모 컴포넌트에 삭제 성공 알림
       console.log("Memo deleted successfully");
     } catch (error) {
       console.error("Error deleting memo: ", error);
