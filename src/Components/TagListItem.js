@@ -10,7 +10,7 @@ const dummyData = {
   recentDate: "2024.12.17",
 };
 
-const TagListItem = ({ shop, recentDate }) => {
+const TagListItem = ({ shop, lastUpdated }) => {
   return (
     <div className={`${styles.listItem} ${styles.tagItemBtn}`}>
       <ImageFrame />
@@ -30,7 +30,7 @@ const TagListItem = ({ shop, recentDate }) => {
         </div>
 
         <div style={{ margin: "4px" }} />
-        <p className={styles.memoTxt}>최근 방문일 : {recentDate}</p>
+        <p className={styles.memoTxt}>최근 기록일 : {lastUpdated}</p>
       </div>
     </div>
   );

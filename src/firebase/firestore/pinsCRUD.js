@@ -4,6 +4,8 @@ import {
   setDoc,
   getDocs,
   deleteDoc,
+  updateDoc,
+  serverTimestamp,
 } from "firebase/firestore";
 import { db } from "../firebase";
 
@@ -55,6 +57,19 @@ async function addMemo(userId, recordId, pinId, newMemo) {
     memoId: newMemoDocRef.id,
   });
   console.log("Memo added successfully");
+
+  const pinDocRef = doc(
+    db,
+    "users",
+    userId,
+    "records",
+    recordId,
+    "pins",
+    pinId
+  );
+  await updateDoc(pinDocRef, {
+    lastUpdated: serverTimestamp(),
+  });
 }
 
 async function fetchMemos(userId, recordId, pinId) {

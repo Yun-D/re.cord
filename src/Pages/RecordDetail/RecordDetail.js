@@ -57,6 +57,7 @@ const RecordDetail = () => {
   }, [recordId]);
 
   if (loading) return <div>로딩중...</div>;
+
   return (
     <div>
       {/* 상단, 레코드 정보 부분 영역 */}
@@ -107,7 +108,9 @@ const RecordDetail = () => {
               <TagListItem
                 key={pin.pinId}
                 shop={pin.place_name}
-                recentDate={"2025.10.07"}
+                lastUpdated={
+                  pin.lastUpdated?.toDate().toLocaleString().slice(0, 12) || ""
+                }
               />
             </Link>
           ))}
