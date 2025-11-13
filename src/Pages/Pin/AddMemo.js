@@ -6,10 +6,17 @@ import StarRating from "../../Components/StarRating";
 import { addMemo } from "../../firebase/firestore/pinsCRUD";
 
 const AddMemo = () => {
+  // 오늘 날짜 구하기
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm = String(today.getMonth() + 1).padStart(2, "0");
+  const dd = String(today.getDate()).padStart(2, "0");
+  const formattedToday = `${yyyy}-${mm}-${dd}`;
+
   const [title, setTitle] = useState("");
   const [review, setReview] = useState("");
   const [rating, setRating] = useState(3); //기본값은 3점
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(formattedToday);
 
   // const auth = getAuth();
   // const user = auth.currentUser;
