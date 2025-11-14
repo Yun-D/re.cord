@@ -60,7 +60,7 @@ const ReviewMemoCard = ({
           <div className="row-direction" style={{ gap: "10px" }}>
             <div
               className={styles.borderBoxTag}
-              style={{ width: "70px", height: "33px" }}
+              style={{ width: "70px", height: "33px", marginLeft: "8px" }}
             >
               ⭐ {rating}
             </div>

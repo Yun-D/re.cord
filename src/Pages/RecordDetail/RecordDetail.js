@@ -66,7 +66,7 @@ const RecordDetail = () => {
           <p className="d-icon-sm">📍</p>
           <p className="no-margin">{pins.length}</p>
           <p className="d-icon-sm">✏️</p>
-          <p className="no-margin">{pins.totalMemoCount}</p>
+          <p className="no-margin">{currRecord.totalMemoCount}</p>
         </div>
       </div>
       {/* -------------------- */}

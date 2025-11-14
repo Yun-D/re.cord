@@ -89,6 +89,11 @@ async function addMemo(userId, recordId, pinId, newMemo) {
     lastUpdated: serverTimestamp(),
     memoCount: increment(1),
   });
+
+  const recordDocRef = doc(db, "users", userId, "records", recordId);
+  await updateDoc(recordDocRef, {
+    totalMemoCount: increment(1),
+  });
 }
 
 async function fetchMemos(userId, recordId, pinId) {
@@ -113,6 +118,11 @@ async function deleteMemo(userId, recordId, pinId, memoId) {
     const pinDocRef = getPinDoc(userId, recordId, pinId);
     await updateDoc(pinDocRef, {
       memoCount: increment(-1),
+    });
+
+    const recordDocRef = doc(db, "users", userId, "records", recordId);
+    await updateDoc(recordDocRef, {
+      totalMemoCount: increment(-1),
     });
   } catch (error) {
     console.error("메모 삭제 중 오류: ", error);
