@@ -2,15 +2,7 @@ import React from "react";
 import styles from "./components.module.css";
 import ImageFrame from "./ImageFrame";
 
-const dummyData = {
-  date: "YYYY.MM.DD",
-  shop: "별별 캡슐샵",
-  ratingAvg: 2.5,
-  count: 2,
-  recentDate: "2024.12.17",
-};
-
-const TagListItem = ({ shop, lastUpdated }) => {
+const TagListItem = ({ shop, lastUpdated, ratingAvg, memoCount }) => {
   return (
     <div className={`${styles.listItem} ${styles.tagItemBtn}`}>
       <ImageFrame />
@@ -25,8 +17,8 @@ const TagListItem = ({ shop, lastUpdated }) => {
             width: "25vh",
           }}
         >
-          <div className={styles.borderBoxTag}>⭐ {dummyData.ratingAvg}</div>
-          <div className={styles.borderBoxTag}>✏️ {dummyData.count}</div>
+          <div className={styles.borderBoxTag}>⭐ {ratingAvg}</div>
+          <div className={styles.borderBoxTag}>✏️ {memoCount}</div>
         </div>
 
         <div style={{ margin: "4px" }} />

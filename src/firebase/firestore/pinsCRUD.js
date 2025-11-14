@@ -6,6 +6,7 @@ import {
   deleteDoc,
   updateDoc,
   serverTimestamp,
+  increment,
 } from "firebase/firestore";
 import { db } from "../firebase";
 
@@ -69,6 +70,7 @@ async function addMemo(userId, recordId, pinId, newMemo) {
   );
   await updateDoc(pinDocRef, {
     lastUpdated: serverTimestamp(),
+    memoCount: increment(1),
   });
 }
 
@@ -109,6 +111,19 @@ async function deleteMemo(userId, recordId, pinId, memoId) {
   try {
     await deleteDoc(memoRef);
     console.log(`${memoId} 문서 삭제 완료`);
+
+    const pinDocRef = doc(
+      db,
+      "users",
+      userId,
+      "records",
+      recordId,
+      "pins",
+      pinId
+    );
+    await updateDoc(pinDocRef, {
+      memoCount: increment(-1),
+    });
   } catch (error) {
     console.error("메모 삭제 중 오류: ", error);
   }

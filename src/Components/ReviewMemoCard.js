@@ -19,7 +19,7 @@ const ReviewMemoCard = ({
 
   const handleDelete = async () => {
     const isConfirmed = window.confirm("이 메모를 삭제할까요?");
-    if (!isConfirmed) {
+    if (isConfirmed) {
       try {
         await deleteMemo(user, recordId, pinId, memoId);
         onDeleteSuccess(); // 부모 컴포넌트에 삭제 성공 알림

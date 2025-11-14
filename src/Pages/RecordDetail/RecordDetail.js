@@ -12,12 +12,6 @@ import { fetchPins } from "../../firebase/firestore/pinsCRUD";
 import KakaoMap from "../../Components/KakaoMap";
 
 const RecordDetail = () => {
-  const dummy = {
-    //FIXME: 실제 데이터로 변경해야함
-    pinCount: 2,
-    memoCount: 3,
-  };
-
   const [isEmpty, setIsEmpty] = useState(true);
   const [loading, setLoading] = useState(false);
   const [currRecord, setCurrRecord] = useState([]); // 현재 레코드 정보
@@ -72,7 +66,7 @@ const RecordDetail = () => {
           <p className="d-icon-sm">📍</p>
           <p className="no-margin">{pins.length}</p>
           <p className="d-icon-sm">✏️</p>
-          <p className="no-margin">{dummy.memoCount}</p>
+          <p className="no-margin">{pins.totalMemoCount}</p>
         </div>
       </div>
       {/* -------------------- */}
@@ -108,6 +102,8 @@ const RecordDetail = () => {
               <TagListItem
                 key={pin.pinId}
                 shop={pin.place_name}
+                ratingAvg={3.5 ?? "-"}
+                memoCount={pin.memoCount ?? 0}
                 lastUpdated={
                   pin.lastUpdated?.toDate().toLocaleString().slice(0, 12) || ""
                 }
