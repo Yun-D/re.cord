@@ -7,6 +7,8 @@ import {
   updateDoc,
   serverTimestamp,
   increment,
+  getAggregateFromServer,
+  average,
 } from "firebase/firestore";
 import { db } from "../firebase";
 
@@ -74,6 +76,35 @@ async function fetchPins(userId, recordId) {
   }
 }
 
+// --------------------------------------------------------------------------------------------------
+async function updatePinAndRecordStats(
+  userId,
+  recordId,
+  pinId,
+  memoCountChange
+) {
+  const recordDocRef = doc(db, "users", userId, "records", recordId);
+  const pinDocRef = getPinDoc(userId, recordId, pinId);
+  const memoRef = getMemosCollection(userId, recordId, pinId);
+
+  const avgSnap = await getAggregateFromServer(memoRef, {
+    avgRating: average("rating"),
+  });
+  const avgRating = Number(avgSnap.data().avgRating.toFixed(2)) || 0;
+
+  // 핀 도큐먼트 업데이트(최근 기록일, 메모 개수, 평균 평점)
+  await updateDoc(pinDocRef, {
+    lastUpdated: serverTimestamp(),
+    memoCount: increment(memoCountChange),
+    avgRating,
+  });
+
+  // 레코드 도큐먼트 업데이트(전체 메모 개수)
+  await updateDoc(recordDocRef, {
+    totalMemoCount: increment(memoCountChange),
+  });
+}
+
 async function addMemo(userId, recordId, pinId, newMemo) {
   const memoRef = getMemosCollection(userId, recordId, pinId);
   const newMemoDocRef = doc(memoRef);
@@ -84,16 +115,7 @@ async function addMemo(userId, recordId, pinId, newMemo) {
   });
   console.log("Memo added successfully");
 
-  const pinDocRef = getPinDoc(userId, recordId, pinId);
-  await updateDoc(pinDocRef, {
-    lastUpdated: serverTimestamp(),
-    memoCount: increment(1),
-  });
-
-  const recordDocRef = doc(db, "users", userId, "records", recordId);
-  await updateDoc(recordDocRef, {
-    totalMemoCount: increment(1),
-  });
+  await updatePinAndRecordStats(userId, recordId, pinId, 1);
 }
 
 async function fetchMemos(userId, recordId, pinId) {
@@ -115,15 +137,7 @@ async function deleteMemo(userId, recordId, pinId, memoId) {
     await deleteDoc(memoRef);
     console.log(`${memoId} 문서 삭제 완료`);
 
-    const pinDocRef = getPinDoc(userId, recordId, pinId);
-    await updateDoc(pinDocRef, {
-      memoCount: increment(-1),
-    });
-
-    const recordDocRef = doc(db, "users", userId, "records", recordId);
-    await updateDoc(recordDocRef, {
-      totalMemoCount: increment(-1),
-    });
+    await updatePinAndRecordStats(userId, recordId, pinId, -1);
   } catch (error) {
     console.error("메모 삭제 중 오류: ", error);
   }

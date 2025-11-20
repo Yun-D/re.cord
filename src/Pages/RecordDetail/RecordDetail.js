@@ -102,7 +102,7 @@ const RecordDetail = () => {
               <TagListItem
                 key={pin.pinId}
                 shop={pin.place_name}
-                ratingAvg={3.5 ?? "-"}
+                ratingAvg={pin.avgRating ?? "-"}
                 memoCount={pin.memoCount ?? 0}
                 lastUpdated={
                   pin.lastUpdated?.toDate().toLocaleString().slice(0, 12) || ""
