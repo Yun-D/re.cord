@@ -11,6 +11,7 @@ const steps = [PinStep1, PinStep2, PinStepFinal];
 const AddPin = () => {
   const location = useLocation();
 
+  const isWish = location.state?.isWish ?? false;
   const [currStep, setCurrStep] = useState(0);
   const [pinData, setPinData] = useState({
     recordId: location.state ? location.state.recordId : null,
@@ -36,6 +37,7 @@ const AddPin = () => {
         setPinData={setPinData}
         nextStep={nextStep}
         prevStep={prevStep}
+        isWishPage={isWish}
       />
     </>
   );

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Button from "../Components/Button";
+import { Link } from "react-router-dom";
 
 const Wish = () => {
   const [isEmpty, setIsEmpty] = useState(true);
@@ -15,7 +16,9 @@ const Wish = () => {
               <br />
               만들어볼까요?
             </p>
-            <Button>위시 등록하기</Button>
+            <Link to="/addPin" state={{ isWish: true }}>
+              <Button>위시 등록하기</Button>
+            </Link>
           </div>
         </div>
       ) : (

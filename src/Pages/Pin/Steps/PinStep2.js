@@ -7,7 +7,7 @@ import SearchLocaItem from "../../../Components/SearchLocaItem";
 import { Link } from "react-router-dom";
 import KakaoMap from "../../../Components/KakaoMap";
 
-const PinStep2 = ({ pinData, nextStep }) => {
+const PinStep2 = ({ pinData, nextStep, isWishPage }) => {
   return (
     <div className="contentAlign">
       <div id="map" className="mapContainer">
@@ -18,10 +18,11 @@ const PinStep2 = ({ pinData, nextStep }) => {
       <div className="content-gap" />
 
       <div className="underButtonArea">
-        <Link to="/wish">
-          <p style={{ color: "#727272" }}>위시로 등록하기</p>
-        </Link>
-
+        {isWishPage ? null : (
+          <Link to="/wish">
+            <p style={{ color: "#727272" }}>위시로 등록하기</p>
+          </Link>
+        )}
         <button
           className={`${styles.button} ${styles.longButton}`}
           onClick={nextStep}

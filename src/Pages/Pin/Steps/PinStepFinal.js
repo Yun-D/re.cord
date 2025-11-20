@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 import { addPin } from "../../../firebase/firestore/pinsCRUD";
 
-const PinStepFinal = ({ pinData }) => {
+const PinStepFinal = ({ pinData, isWishPage }) => {
   const navigate = useNavigate();
   const user = localStorage.getItem("anonUserid");
   const [description, setDescription] = useState("");
@@ -17,8 +17,13 @@ const PinStepFinal = ({ pinData }) => {
     e.preventDefault();
 
     try {
-      await addPin(user, finalData, finalData.recordId);
-      navigate(`/recordDetail/` + finalData.recordId);
+      if (isWishPage) {
+        await addPin(user, finalData, finalData.recordId);
+        navigate(`/recordDetail/` + finalData.recordId);
+      } else {
+        //await addPin(user, finalData, finalData.recordId); // TODO: addWish 추가하고 변경
+        //navigate(`/wish`);
+      }
     } catch (error) {
       console.error("Error adding pin: ", error);
     }
