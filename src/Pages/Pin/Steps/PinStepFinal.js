@@ -1,4 +1,4 @@
-// 핀 만들기 3단계 (메모 추가, 최종 등록) -------------------------------
+// 핀 만들기 3단계 (메모 or 위시 추가, 최종 등록) -------------------------------
 import React, { useState } from "react";
 import ImageFrame from "../../../Components/ImageFrame";
 import styles from "../../../Components/components.module.css";
@@ -6,6 +6,7 @@ import "../AddPin.css";
 import { useNavigate } from "react-router-dom";
 
 import { addPin } from "../../../firebase/firestore/pinsCRUD";
+import { addWish } from "../../../firebase/firestore/wishesCRUD";
 
 const PinStepFinal = ({ pinData, isWishPage }) => {
   const navigate = useNavigate();
@@ -13,19 +14,23 @@ const PinStepFinal = ({ pinData, isWishPage }) => {
   const [description, setDescription] = useState("");
 
   const handleAddPlace = async (e) => {
-    const finalData = { ...pinData, pinDesc: description };
     e.preventDefault();
+    const baseData = { ...pinData, pinDesc: description };
 
     try {
-      if (isWishPage) {
+      if (!isWishPage) {
+        // 핀 추가 (recordId 필요)
+        const finalData = baseData;
         await addPin(user, finalData, finalData.recordId);
         navigate(`/recordDetail/` + finalData.recordId);
       } else {
-        //await addPin(user, finalData, finalData.recordId); // TODO: addWish 추가하고 변경
-        //navigate(`/wish`);
+        // 위시 추가(recordId 제거)
+        const { recordId, ...wishData } = baseData;
+        await addWish(user, wishData);
+        navigate(`/wish`);
       }
     } catch (error) {
-      console.error("Error adding pin: ", error);
+      console.error("Error adding final pin: ", error);
     }
   };
 

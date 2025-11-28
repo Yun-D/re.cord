@@ -14,7 +14,8 @@ const AddPin = () => {
   const isWish = location.state?.isWish ?? false;
   const [currStep, setCurrStep] = useState(0);
   const [pinData, setPinData] = useState({
-    recordId: location.state ? location.state.recordId : null,
+    ...(location.state?.recordId && { recordId: location.state.recordId }),
+    //isWish값과 상관 없이, location.state에 recordId가 있으면 pinData에 포함
   });
 
   const StepComponent = steps[currStep];
