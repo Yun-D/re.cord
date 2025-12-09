@@ -1,13 +1,54 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "../Components/Button";
 import { Link } from "react-router-dom";
+import { fetchWishes } from "../firebase/firestore/wishesCRUD";
+import WishItem from "../Components/WishItem";
+import FloatingButton from "../Components/FloatingButton";
+import { ReactComponent as IcnEdit } from "../Assets/edit.svg";
 
 const Wish = () => {
   const [isEmpty, setIsEmpty] = useState(true);
-  //TODO: 데이터 요청 후 바로 setIsEmpty 설정하는 코드 추가
+  const [loading, setLoading] = useState(false);
+  const [wishes, setWishes] = useState([]);
 
+  // const auth = getAuth();
+  // const user = auth.currentUser;
+  const user = localStorage.getItem("anonUserid");
+
+  const loadUserWishes = async () => {
+    try {
+      setLoading(true);
+      const data = await fetchWishes(user);
+
+      if (data.length > 0) {
+        setIsEmpty(false);
+        setWishes(data);
+      } else {
+        setWishes([]);
+      }
+    } catch (error) {
+      console.error("Error fetching wish: ", error);
+      setIsEmpty(true);
+      setWishes([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // 메모 삭제 후 메모 리스트 다시 불러오기
+  const handleDeleteSuccess = () => {
+    loadUserWishes();
+  };
+
+  useEffect(() => {
+    loadUserWishes();
+  }, []);
+
+  if (loading) return <div>로딩중...</div>;
   return (
     <div>
+      <h2 className="no-margin">위시</h2>
+
       {isEmpty ? (
         <div className="container">
           <div className="content-align">
@@ -22,8 +63,25 @@ const Wish = () => {
           </div>
         </div>
       ) : (
-        <div></div>
+        <div style={{ marginTop: "10px" }}>
+          {wishes.map((wish) => (
+            <WishItem
+              key={wish.wishId}
+              wishId={wish.wishId}
+              place_name={wish.place_name}
+              pinDesc={wish.pinDesc}
+              address={wish.address}
+              onDeleteSuccess={handleDeleteSuccess}
+            />
+          ))}
+        </div>
       )}
+
+      <Link to="/addPin" state={{ isWish: true }}>
+        <FloatingButton>
+          <IcnEdit />
+        </FloatingButton>
+      </Link>
     </div>
   );
 };
