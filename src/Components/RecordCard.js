@@ -3,8 +3,8 @@ import styles from "../Components/components.module.css";
 
 import { ReactComponent as IcnHeart } from "../Assets/heart.svg";
 
-const RecordItem = ({ children, color }) => {
-  //추가된 레코드 아이템 버튼 컴포넌트
+// 레코드페이지에서 사용되는, 레코드 아이템 컴포넌트
+const RecordCard = ({ children, color }) => {
   return (
     <div className={styles.vinylContainer}>
       <div className={styles.vinylCase}>
@@ -26,4 +26,4 @@ const RecordItem = ({ children, color }) => {
   );
 };
 
-export default RecordItem;
+export default RecordCard;

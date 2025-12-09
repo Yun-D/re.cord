@@ -2,7 +2,8 @@ import React from "react";
 import styles from "./components.module.css";
 import ImageFrame from "./ImageFrame";
 
-const TagListItem = ({ shop, lastUpdated, ratingAvg, memoCount }) => {
+// 레코드 디테일에서 사용하는, 별점/메모 개수 태그가 있는 핀 아이템 컴포넌트
+const RecordPinCard = ({ shop, lastUpdated, ratingAvg, memoCount }) => {
   return (
     <div className={`${styles.listItem} ${styles.tagItemBtn}`}>
       <ImageFrame />
@@ -28,4 +29,4 @@ const TagListItem = ({ shop, lastUpdated, ratingAvg, memoCount }) => {
   );
 };
 
-export default TagListItem;
+export default RecordPinCard;

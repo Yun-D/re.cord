@@ -69,7 +69,7 @@
 
 /* ----------------------------------------- */
 
-/* ReviewMemoCard -------------------------- */
+/* PinMemoCard -------------------------- */
 .r_listContainer {
   border-radius: 3px;
   border: var(--border-size) solid var(--color-line-black);
@@ -148,7 +148,7 @@
 
 /* ----------------------------------------- */
 
-/* RecordItem ------------------------------ */
+/* RecordCard ------------------------------ */
 .vinylContainer {
   position: relative;
   width: 210px;
@@ -225,7 +225,7 @@
 
 /* ----------------------------------------- */
 
-/* SearchLocalItem ------------------------- */
+/* PlaceSearchCard ------------------------- */
 .s_listContainer {
   background-color: white;
   width: 100%;

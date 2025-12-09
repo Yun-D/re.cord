@@ -3,7 +3,7 @@ import React from "react";
 import styles from "../../../Components/components.module.css";
 import "../AddPin.css";
 
-import SearchLocaItem from "../../../Components/SearchLocaItem";
+import PlaceSearchCard from "../../../Components/PlaceSearchCard";
 import { Link } from "react-router-dom";
 import KakaoMap from "../../../Components/KakaoMap";
 
@@ -14,7 +14,7 @@ const PinStep2 = ({ pinData, nextStep, isWishPage }) => {
         <KakaoMap pins={pinData} isMultiple={false} />
       </div>
 
-      <SearchLocaItem place={pinData.place_name} address={pinData.address} />
+      <PlaceSearchCard place={pinData.place_name} address={pinData.address} />
       <div className="content-gap" />
 
       <div className="underButtonArea">

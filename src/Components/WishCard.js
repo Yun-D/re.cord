@@ -1,16 +1,14 @@
 import React from "react";
+import { deleteWish } from "../firebase/firestore/wishesCRUD";
 import styles from "./components.module.css";
 import { RiDeleteBin5Fill } from "react-icons/ri";
-import { deleteMemo } from "../firebase/firestore/pinsCRUD";
 
-const ReviewMemoCard = ({
-  date,
-  title,
-  review,
-  rating,
-  recordId,
-  pinId,
-  memoId,
+// 위시에서 사용되는, 위시 아이템 컴포넌트(장소명 + 설명 + 주소 + 삭제버튼)
+const WishCard = ({
+  place_name,
+  pinDesc,
+  address,
+  wishId,
   onDeleteSuccess,
 }) => {
   // const auth = getAuth();
@@ -18,30 +16,20 @@ const ReviewMemoCard = ({
   const user = localStorage.getItem("anonUserid");
 
   const handleDelete = async () => {
-    const isConfirmed = window.confirm("이 메모를 삭제할까요?");
+    const isConfirmed = window.confirm("이 위시를 삭제할까요?");
     if (isConfirmed) {
       try {
-        await deleteMemo(user, recordId, pinId, memoId);
+        await deleteWish(user, wishId);
         onDeleteSuccess(); // 부모 컴포넌트에 삭제 성공 알림
-        console.log("Memo deleted successfully");
+        console.log("Wish deleted successfully");
       } catch (error) {
-        console.error("Error deleting memo: ", error);
+        console.error("Error deleting wish: ", error);
       }
     }
   };
 
   return (
     <div className={styles.r_listContainer}>
-      <div
-        style={{
-          width: "72px",
-          height: "72px",
-          flexShrink: 0,
-          border: `var(--border-size) solid var(--color-line-black)`,
-        }}
-        //사진 영역
-      />
-
       <div
         style={{ flexDirection: "column", marginLeft: "15px", width: "100%" }}
       >
@@ -53,17 +41,11 @@ const ReviewMemoCard = ({
           }}
         >
           <div>
-            <h4 className={styles.dataTxt}>{date}</h4>
-            <h4 className={styles.dataTxt}>{title}</h4>
+            <h4 className={styles.dataTxt}>{place_name}</h4>
+            <p className={styles.dataTxt}>{address}</p>
           </div>
 
           <div className="row-direction" style={{ gap: "10px" }}>
-            <div
-              className={styles.borderBoxTag}
-              style={{ width: "70px", height: "33px", marginLeft: "8px" }}
-            >
-              ⭐ {rating}
-            </div>
             <button
               className={`${styles.button} ${styles.deleteBtn}`}
               onClick={handleDelete}
@@ -76,10 +58,10 @@ const ReviewMemoCard = ({
           </div>
         </div>
 
-        <p className={styles.r_memoTxt}>{review}</p>
+        <p className={styles.r_memoTxt}>{pinDesc}</p>
       </div>
     </div>
   );
 };
 
-export default ReviewMemoCard;
+export default WishCard;

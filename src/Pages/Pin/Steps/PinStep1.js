@@ -5,7 +5,7 @@ import styles from "../../../Components/components.module.css";
 import "../../Records.css";
 
 import { ReactComponent as IcnSearch } from "../../../Assets/search.svg";
-import SearchLocaItem from "../../../Components/SearchLocaItem";
+import PlaceSearchCard from "../../../Components/PlaceSearchCard";
 
 const { kakao } = window;
 
@@ -91,7 +91,7 @@ const PinStep1 = ({ pinData, setPinData, nextStep }) => {
       {error && <p style={{ color: "red" }}>{error}</p>} {/* 에러메시지 출력 */}
       <ul style={{ padding: "0 0 0 10px" }}>
         {places.map((place) => (
-          <SearchLocaItem
+          <PlaceSearchCard
             key={place.id}
             onClick={() => {
               setPinData({

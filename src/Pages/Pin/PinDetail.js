@@ -7,7 +7,7 @@ import { fetchRecords } from "../../firebase/firestore/recordsCRUD";
 import "../RecordDetail/RecordDetail.css";
 import FloatingButton from "../../Components/FloatingButton";
 import { fetchMemos, fetchPins } from "../../firebase/firestore/pinsCRUD";
-import ReviewMemoCard from "../../Components/ReviewMemoCard";
+import PinMemoCard from "../../Components/PinMemoCard";
 
 const PinDetail = () => {
   const params = useParams();
@@ -102,7 +102,7 @@ const PinDetail = () => {
       ) : (
         <div style={{ marginTop: "48px" }}>
           {pinMemos.map((item) => (
-            <ReviewMemoCard
+            <PinMemoCard
               key={item.memoId}
               memoId={item.memoId}
               pinId={pinData.pinId}

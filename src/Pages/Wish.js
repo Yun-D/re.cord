@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Button from "../Components/Button";
 import { Link } from "react-router-dom";
 import { fetchWishes } from "../firebase/firestore/wishesCRUD";
-import WishItem from "../Components/WishItem";
+import WishCard from "../Components/WishCard";
 import FloatingButton from "../Components/FloatingButton";
 import { ReactComponent as IcnEdit } from "../Assets/edit.svg";
 
@@ -65,7 +65,7 @@ const Wish = () => {
       ) : (
         <div style={{ marginTop: "10px" }}>
           {wishes.map((wish) => (
-            <WishItem
+            <WishCard
               key={wish.wishId}
               wishId={wish.wishId}
               place_name={wish.place_name}

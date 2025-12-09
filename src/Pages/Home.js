@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import Button from "../Components/Button";
-import ListItem from "../Components/ListItem";
+import RecentMemoCard from "../Components/RecentMemoCard";
 import FloatingButton from "../Components/FloatingButton";
 import { ReactComponent as IcnEdit } from "../Assets/edit.svg";
 
@@ -37,7 +37,7 @@ const Home = () => {
         <p className="text-title">최근 추가된 기록</p>
 
         <div className="recentRecords">
-          <ListItem />
+          <RecentMemoCard />
           <Button>더보기</Button>
         </div>
       </div>

@@ -5,7 +5,7 @@ import { ReactComponent as IcnFolder } from "../../Assets/folder.svg";
 import { ReactComponent as IcnEdit } from "../../Assets/edit.svg";
 import "./RecordDetail.css";
 import { Link, useParams } from "react-router-dom";
-import TagListItem from "../../Components/TagListItem";
+import RecordPinCard from "../../Components/RecordPinCard";
 
 import { fetchRecords } from "../../firebase/firestore/recordsCRUD";
 import { fetchPins } from "../../firebase/firestore/pinsCRUD";
@@ -99,7 +99,7 @@ const RecordDetail = () => {
               key={pin.pinId}
               style={{ textDecoration: "none", color: "inherit" }}
             >
-              <TagListItem
+              <RecordPinCard
                 key={pin.pinId}
                 shop={pin.place_name}
                 ratingAvg={pin.avgRating ?? "-"}

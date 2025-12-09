@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { fetchRecords } from "../firebase/firestore/recordsCRUD";
-import RecordItem from "../Components/RecordItem";
+import RecordCard from "../Components/RecordCard";
 
 import "./Records.css";
 import { ReactComponent as IcnPlus } from "../Assets/add.svg";
@@ -56,7 +56,7 @@ const Record = () => {
           <div className="contentArea">
             {records.map((item) => (
               <Link to={`/recordDetail/${item.recordId}`} key={item.recordId}>
-                <RecordItem>{item.name}</RecordItem>
+                <RecordCard>{item.name}</RecordCard>
               </Link>
             ))}
           </div>
