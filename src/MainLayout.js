@@ -9,7 +9,6 @@ import Navbar from "./Components/Navbar";
 
 import ProtectedRoute from "./Components/ProtectedRoute";
 import Greeting from "./Pages/Greeting";
-import Home from "./Pages/Home";
 import Records from "./Pages/Records";
 import AddRecord from "./Pages/AddRecord";
 import RecordDetail from "./Pages/RecordDetail/RecordDetail";
@@ -59,7 +58,6 @@ const MainLayout = () => {
                 </ProtectedRoute>
               }
             />
-            <Route path="/home" element={<Home />} />
             <Route path="/record" element={<Records />} />
             <Route path="/addRecord" element={<AddRecord />} />
             <Route path="/recordDetail/:recordId" element={<RecordDetail />} />

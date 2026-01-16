@@ -41,7 +41,7 @@ const Greeting = () => {
         { merge: true }
       );
 
-      navigate("/home"); // 로그인 후 홈으로 이동
+      navigate("/record"); // 로그인 후 홈으로 이동
     } catch (err) {
       console.error("로그인 오류: ", err.message);
     } finally {
