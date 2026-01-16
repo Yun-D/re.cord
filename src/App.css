@@ -15,7 +15,7 @@
 
   /*------------------ 사이즈 ------------------*/
   /*------- 폰트 -------*/
-  --font-size-sm: 14px
+  --font-size-sm: 14px;
   --font-size-md: 18px;
   --font-size-lg: 20px;
   /*------- 보더라인 -------*/
@@ -38,14 +38,16 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  min-height: 100vh; /* 최소높이 설정 */;
+  min-height: 100vh; /* 최소높이 설정 */
   overflow: hidden;
 }
 .box-wrapper {
   display: flex;
   flex-direction: column;
   width: 500px;
-  min-height: calc(100vh - 70px); /* 유동적인 높이 조절 위해 min-height 사용, navbar 영역 계산 */
+  min-height: calc(
+    100vh - 70px
+  ); /* 유동적인 높이 조절 위해 min-height 사용, navbar 영역 계산 */
   background-color: white;
 }
 .content {
@@ -75,7 +77,7 @@
   align-items: center;
 }
 
-
+/* ******************************************************************** */
 
 .text-title {
   font-size: var(--font-size-lg);
@@ -92,35 +94,15 @@
 }
 
 /* ******************************************************************** */
-
-.recentRecords {
-  width: 448px;
-  height: 246px;
-  background-color: aliceblue;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
-.ratingSpread {
-  width: 448px;
-  height: 240px;
-  background-color: aliceblue;
-}
-
-
-
-/* ******************************************************************** */
 .inputbox {
   width: 100%;
   height: 40px;
-  font-size: "12px";
+  font-size: 12px;
 }
 
 .textareaBox_sm {
   width: 100%;
   height: 70px;
   resize: none;
-  font-size: "12px";
+  font-size: 12px;
 }

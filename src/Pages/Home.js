@@ -12,6 +12,22 @@ const Home = () => {
   const [user, setUser] = useState(null);
   const nickname = localStorage.getItem("nickname");
 
+  const homeBoxStyle = {
+    width: "448px",
+    height: "246px",
+    backgroundColor: "aliceblue",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+  };
+
+  const ratingSpreadStyle = {
+    width: "448px",
+    height: "240px",
+    backgroundColor: "aliceblue",
+  };
+
   useEffect(() => {
     // 로그인 상태 감지. 로그인,아웃 시 실행
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -36,7 +52,7 @@ const Home = () => {
       <div>
         <p className="text-title">최근 추가된 기록</p>
 
-        <div className="recentRecords">
+        <div style={homeBoxStyle}>
           <RecentMemoCard />
           <Button>더보기</Button>
         </div>
@@ -45,7 +61,7 @@ const Home = () => {
       <div>
         <p className="text-title">평점 분포</p>
 
-        <div className="ratingSpread" />
+        <div style={ratingSpreadStyle} />
       </div>
 
       <FloatingButton>
