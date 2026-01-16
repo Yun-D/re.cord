@@ -77,6 +77,34 @@
   align-items: center;
 }
 
+.row-direction-between {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.row-direction-title {
+  display: flex;
+  flex-direction: row;
+  height: 26px;
+  align-items: center;
+}
+
+/* ******************************************************************** */
+
+.container {
+  height: calc(100vh - 140px - 110px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content-align {
+  flex: 1;
+  text-align: center;
+}
+
 /* ******************************************************************** */
 
 .text-title {

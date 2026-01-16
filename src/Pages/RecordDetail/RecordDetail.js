@@ -56,7 +56,7 @@ const RecordDetail = () => {
     <div>
       {/* 상단, 레코드 정보 부분 영역 */}
 
-      <div className="row-direction">
+      <div className="row-direction-between">
         <div className="title-container">
           <IcnFolder className="d-icon" />
           <p className="title">{currRecord.name}</p>

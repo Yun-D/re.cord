@@ -1,20 +1,3 @@
-.container {
-  height: calc(100vh - 140px - 110px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.content-align {
-  flex: 1;
-  text-align: center;
-}
-
-.row-direction {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
 .contentArea {
   display: flex;
   flex-wrap: wrap;
