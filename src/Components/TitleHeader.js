@@ -39,7 +39,7 @@ const TitleHeader = ({ title, prevStep, step }) => {
   // 메뉴 항목 목록
   const menuItems = [
     { id: 1, label: "도움말", onClick: closeDrawer },
-    { id: 2, label: "버전 정보", onClick: closeDrawer },
+    { id: 2, label: "버전 정보", rightText: "ver. 0.1.0" }, //TODO: 버전 정보 업데이트
     { id: 3, label: "로그아웃", onClick: closeDrawer },
   ];
 

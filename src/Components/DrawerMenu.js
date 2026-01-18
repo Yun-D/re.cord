@@ -30,9 +30,28 @@ const DrawerMenu = ({ isOpen, onClose, menuItems = [] }) => {
         </h2>
         <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
           {menuItems.map((item) => (
-            <li key={item.id} style={{ marginBottom: "16px" }}>
-              <button style={buttonStyle} onClick={item.onClick}>
-                {item.label}
+            <li key={item.id} style={{ marginBottom: "14px" }}>
+              <button
+                style={{
+                  ...buttonStyle,
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  cursor: item.onClick ? "pointer" : "default", // onClick이 있으면 커서 포인터, 없으면 기본
+                }}
+                onClick={item.onClick}
+              >
+                <span>{item.label}</span>
+                {item.rightText && (
+                  <span
+                    style={{
+                      fontSize: "var(--font-size-sm)",
+                      color: "var(--color-gray)",
+                    }}
+                  >
+                    {item.rightText}
+                  </span>
+                )}
               </button>
             </li>
           ))}
