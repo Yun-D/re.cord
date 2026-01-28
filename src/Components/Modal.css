@@ -1,0 +1,39 @@
+/* 모달 오버레이 (검은 배경) */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+/* 선택 모달 컨테이너 */
+.modalContent {
+  background: white;
+  padding: 30px;
+  border-radius: 3px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 300px;
+  max-width: 400px;
+}
+
+/* 모달 제목 */
+.modalTitle {
+  margin: 0 0 20px 0;
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  text-align: center;
+}
+
+/* 버튼 컨테이너 */
+.modalButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}

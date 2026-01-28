@@ -2,12 +2,16 @@ import React, { useEffect, useState } from "react";
 
 import { ReactComponent as IcnFolder } from "../../Assets/folder_open.svg";
 import { ReactComponent as IcnEdit } from "../../Assets/edit.svg";
+import { IoIosMore } from "react-icons/io";
+
 import { Link, useParams } from "react-router-dom";
 import { fetchRecords } from "../../firebase/firestore/recordsCRUD";
 import "../RecordDetail/RecordDetail.css";
+import styles from "../../Components/components.module.css";
 import FloatingButton from "../../Components/FloatingButton";
 import { fetchMemos, fetchPins } from "../../firebase/firestore/pinsCRUD";
 import PinMemoCard from "../../Components/PinMemoCard";
+import EditModal from "../../Components/EditModal";
 
 const PinDetail = () => {
   const params = useParams();
@@ -18,6 +22,8 @@ const PinDetail = () => {
   const [currRecordName, setCurrRecordName] = useState(""); // 현재 레코드 이름
   const [pinData, setPinData] = useState("");
   const [pinMemos, setPinMemos] = useState(null);
+
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   const loadUserMemos = async () => {
     try {
@@ -56,8 +62,28 @@ const PinDetail = () => {
   };
 
   // 메모 삭제 후 메모 리스트 다시 불러오기
-  const handleDeleteSuccess = () => {
+  const handleMemoDeleteSuccess = () => {
     loadUserMemos();
+  };
+
+  // 모달 관련 핸들러
+  const handleModalEdit = () => {
+    setIsEditModalOpen(false);
+    // TODO: 핀 수정 페이지로 이동 구현 필요
+  };
+
+  const handleModalDelete = async () => {
+    if (window.confirm("정말 이 핀을 삭제하시겠습니까?")) {
+      try {
+        // await 핀삭제 TODO: 핀 삭제 함수 구현 필요
+        alert("핀이 삭제되었습니다.");
+        setIsEditModalOpen(false);
+        // 페이지 리로드 또는 상태 업데이트 필요
+      } catch (error) {
+        console.error("삭제 실패:", error);
+        alert("삭제에 실패했습니다.");
+      }
+    }
   };
 
   useEffect(() => {
@@ -67,13 +93,21 @@ const PinDetail = () => {
   if (loading) return <div>로딩중...</div>;
   return (
     <div>
-      <div className="row-direction">
+      <div className="row-direction-between">
         <div className="title-container">
           <IcnFolder className="d-icon" />
           <p className="title">
             {currRecordName} / {pinData.place_name}
           </p>
         </div>
+
+        <button
+          className={`${styles.button} ${styles.deleteBtn}`}
+          style={{ backgroundColor: "white" }}
+          onClick={() => setIsEditModalOpen(true)}
+        >
+          <IoIosMore />
+        </button>
       </div>
       <div
         style={{
@@ -88,6 +122,14 @@ const PinDetail = () => {
       >
         {pinData.pinDesc}
       </div>
+
+      <EditModal
+        isOpen={isEditModalOpen}
+        title={"핀 관리"}
+        onClose={() => setIsEditModalOpen(false)}
+        onEdit={handleModalEdit}
+        onDelete={handleModalDelete}
+      />
 
       {isEmpty ? (
         <div className="container">
@@ -111,7 +153,7 @@ const PinDetail = () => {
               title={item.title}
               review={item.review}
               rating={item.rating}
-              onDeleteSuccess={handleDeleteSuccess} // 삭제 성공 콜백
+              onDeleteSuccess={handleMemoDeleteSuccess} // 삭제 성공 콜백
             />
           ))}
         </div>

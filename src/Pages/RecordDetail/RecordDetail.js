@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import FloatingButton from "../../Components/FloatingButton";
+import EditModal from "../../Components/EditModal";
 
 import { ReactComponent as IcnFolder } from "../../Assets/folder.svg";
 import { ReactComponent as IcnEdit } from "../../Assets/edit.svg";
+import { IoIosMore } from "react-icons/io";
 import "./RecordDetail.css";
+import styles from "../../Components/components.module.css";
 import { Link, useParams } from "react-router-dom";
 import RecordPinCard from "../../Components/RecordPinCard";
 
@@ -16,6 +19,7 @@ const RecordDetail = () => {
   const [loading, setLoading] = useState(false);
   const [currRecord, setCurrRecord] = useState([]); // 현재 레코드 정보
   const [pins, setPins] = useState([]);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   const { recordId } = useParams(); // URL 파라미터에서 recordId 추출
   useEffect(() => {
@@ -50,6 +54,26 @@ const RecordDetail = () => {
     loadUserPins();
   }, [recordId]);
 
+  // 모달 관련 핸들러
+  const handleModalEdit = () => {
+    setIsEditModalOpen(false);
+    // TODO: 레코드 이름 수정 구현 필요
+  };
+
+  const handleModalDelete = async () => {
+    if (window.confirm("정말 이 레코드를 삭제하시겠습니까?")) {
+      try {
+        // await 레코드 삭제 TODO: 레코드 삭제 함수 구현 필요
+        alert("레코드가 삭제되었습니다.");
+        setIsEditModalOpen(false);
+        // 페이지 리로드 또는 상태 업데이트 필요
+      } catch (error) {
+        console.error("삭제 실패:", error);
+        alert("삭제에 실패했습니다.");
+      }
+    }
+  };
+
   if (loading) return <div>로딩중...</div>;
 
   return (
@@ -61,14 +85,32 @@ const RecordDetail = () => {
           <p className="title">{currRecord.name}</p>
         </div>
 
-        <div className="dataSummary">
-          <p className="d-icon-sm">📍</p>
-          <p className="no-margin">{pins.length}</p>
-          <p className="d-icon-sm">✏️</p>
-          <p className="no-margin">{currRecord.totalMemoCount}</p>
+        <div className="row-direction">
+          <div className="dataSummary">
+            <p className="d-icon-sm">📍</p>
+            <p className="no-margin">{pins.length}</p>
+            <p className="d-icon-sm">✏️</p>
+            <p className="no-margin">{currRecord.totalMemoCount}</p>
+          </div>
+
+          <div style={{ width: 20 }}></div>
+          <button
+            className={`${styles.button} ${styles.deleteBtn}`}
+            style={{ backgroundColor: "white" }}
+            onClick={() => setIsEditModalOpen(true)}
+          >
+            <IoIosMore />
+          </button>
         </div>
       </div>
       {/* -------------------- */}
+      <EditModal
+        isOpen={isEditModalOpen}
+        title={"레코드 관리"}
+        onClose={() => setIsEditModalOpen(false)}
+        onEdit={handleModalEdit}
+        onDelete={handleModalDelete}
+      />
 
       {isEmpty ? (
         <div className="container">
