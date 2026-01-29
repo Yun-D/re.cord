@@ -18,7 +18,6 @@ const PinStep1 = ({ pinData, setPinData, nextStep }) => {
   const [paginationInfo, setPaginationInfo] = useState(null);
   const [currPage, setCurrPage] = useState(1);
 
-  const [isLoading, setIsLoading] = useState(false);
   const inputRef = useRef(null);
 
   // 키워드 검색 요청 핸들러 & 상태관리
@@ -29,14 +28,11 @@ const PinStep1 = ({ pinData, setPinData, nextStep }) => {
     }
 
     setError("");
-    setIsLoading(true);
 
     const ps = new kakao.maps.services.Places(); // 장소 검색 객체 생성
     ps.keywordSearch(
       keyword,
       (data, status, pagination) => {
-        setIsLoading(false);
-
         if (status === kakao.maps.services.Status.OK) {
           // 정상적으로 검색이 완료됐으면 검색 목록 표출
           setPlaces(data);
@@ -57,7 +53,7 @@ const PinStep1 = ({ pinData, setPinData, nextStep }) => {
           setPaginationInfo(null);
         }
       },
-      { page }
+      { page },
     );
   };
 
@@ -127,7 +123,7 @@ const PinStep1 = ({ pinData, setPinData, nextStep }) => {
               >
                 {pageNum}
               </button>
-            )
+            ),
           )}
         </div>
       )}

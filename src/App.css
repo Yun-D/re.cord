@@ -125,12 +125,12 @@
 .inputbox {
   width: 100%;
   height: 40px;
-  font-size: 12px;
+  font-size: var(--font-size-sm);
 }
 
 .textareaBox_sm {
   width: 100%;
   height: 70px;
   resize: none;
-  font-size: 12px;
+  font-size: var(--font-size-sm);
 }

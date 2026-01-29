@@ -62,7 +62,7 @@ const AddRecord = () => {
           className="inputbox"
         />
 
-        <div className="content-gap" />
+        <div style={{ marginBottom: "20px" }} />
         {/* <p className="text-subtitle">색상</p>
         <div className="row-direction">
           {colors.map((color, idx) => (
@@ -77,11 +77,11 @@ const AddRecord = () => {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder=" 레코드에 대한 간단한 설명을 적어주세요."
-          className="textareaBox"
+          className="textareaBox_sm"
         />
 
         <div className="content-align">
-          <div className="content-gap" />
+          <div style={{ marginBottom: "40px" }} />
           <Button type="submit">기록 시작하기</Button>
         </div>
       </form>

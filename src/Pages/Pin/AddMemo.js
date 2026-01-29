@@ -42,7 +42,7 @@ const AddMemo = () => {
     try {
       await addMemo(user, currPinData.recordId, currPinData.pinId, finalData);
       navigate(
-        `/recordDetail/${currPinData.recordId}/pinDetail/${currPinData.pinId}`
+        `/recordDetail/${currPinData.recordId}/pinDetail/${currPinData.pinId}`,
       );
     } catch (error) {
       console.error("Error adding pin: ", error);
@@ -111,6 +111,8 @@ const AddMemo = () => {
           placeholder=" 오늘의 방문에 대해 기록하고 싶은 내용을 적어주세요."
           className="textareaBox_sm"
         />
+
+        <div style={{ marginBottom: "60px" }}></div>
 
         <div className="underButtonArea">
           <button
