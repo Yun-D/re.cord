@@ -37,3 +37,23 @@
   flex-direction: column;
   gap: 12px;
 }
+
+/* *** 수정 폼 관련 *** */
+.editForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.editInput {
+  width: 100%;
+  padding: 12px;
+  border: var(--border-size) solid var(--color-line-black);
+  border-radius: 3px;
+  font-size: var(--font-size-sm);
+  background-color: white;
+}
+
+.editInput::placeholder {
+  color: #999;
+}

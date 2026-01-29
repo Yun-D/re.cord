@@ -12,6 +12,7 @@ import FloatingButton from "../../Components/FloatingButton";
 import { fetchMemos, fetchPins } from "../../firebase/firestore/pinsCRUD";
 import PinMemoCard from "../../Components/PinMemoCard";
 import EditModal from "../../Components/EditModal";
+import EditInputModal from "../../Components/EditInputModal";
 
 const PinDetail = () => {
   const params = useParams();
@@ -24,6 +25,7 @@ const PinDetail = () => {
   const [pinMemos, setPinMemos] = useState(null);
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isEditDescModalOpen, setIsEditDescModalOpen] = useState(false);
 
   const loadUserMemos = async () => {
     try {
@@ -69,7 +71,7 @@ const PinDetail = () => {
   // 모달 관련 핸들러
   const handleModalEdit = () => {
     setIsEditModalOpen(false);
-    // TODO: 핀 수정 페이지로 이동 구현 필요
+    setIsEditDescModalOpen(true);
   };
 
   const handleModalDelete = async () => {
@@ -83,6 +85,19 @@ const PinDetail = () => {
         console.error("삭제 실패:", error);
         alert("삭제에 실패했습니다.");
       }
+    }
+  };
+
+  const handleSavePinDesc = async (newDesc) => {
+    try {
+      // await updatePin(user, recordId, pinId, {pinDesc: newDesc}) TODO: 핀업데이트 함수 구현 필요
+      alert("핀 설명이 수정되었습니다.");
+      setIsEditDescModalOpen(false);
+      // 페이지 리로드 또는 상태 업데이트 필요
+      // loadUserMemos();
+    } catch (error) {
+      console.error("삭제 실패:", error);
+      alert("삭제에 실패했습니다.");
     }
   };
 
@@ -129,6 +144,16 @@ const PinDetail = () => {
         onClose={() => setIsEditModalOpen(false)}
         onEdit={handleModalEdit}
         onDelete={handleModalDelete}
+      />
+      <EditInputModal
+        isOpen={isEditDescModalOpen}
+        onClose={() => setIsEditDescModalOpen(false)}
+        onSave={handleSavePinDesc}
+        title={"핀 설명 수정"}
+        fieldName={"pinDesc"}
+        initialValue={pinData.pinDesc}
+        placeholder={"변경할 핀 설명을 입력해주세요."}
+        isTextarea={true}
       />
 
       {isEmpty ? (

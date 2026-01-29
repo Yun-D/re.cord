@@ -13,13 +13,16 @@ import RecordPinCard from "../../Components/RecordPinCard";
 import { fetchRecords } from "../../firebase/firestore/recordsCRUD";
 import { fetchPins } from "../../firebase/firestore/pinsCRUD";
 import KakaoMap from "../../Components/KakaoMap";
+import EditInputModal from "../../Components/EditInputModal";
 
 const RecordDetail = () => {
   const [isEmpty, setIsEmpty] = useState(true);
   const [loading, setLoading] = useState(false);
   const [currRecord, setCurrRecord] = useState([]); // 현재 레코드 정보
   const [pins, setPins] = useState([]);
+
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isEditNameModalOpen, setIsEditNameModalOpen] = useState(false);
 
   const { recordId } = useParams(); // URL 파라미터에서 recordId 추출
   useEffect(() => {
@@ -57,7 +60,7 @@ const RecordDetail = () => {
   // 모달 관련 핸들러
   const handleModalEdit = () => {
     setIsEditModalOpen(false);
-    // TODO: 레코드 이름 수정 구현 필요
+    setIsEditNameModalOpen(true);
   };
 
   const handleModalDelete = async () => {
@@ -71,6 +74,19 @@ const RecordDetail = () => {
         console.error("삭제 실패:", error);
         alert("삭제에 실패했습니다.");
       }
+    }
+  };
+
+  const handleSaveRecordName = async (newName) => {
+    try {
+      // await updateRecord(user, recordId, {name: newName}) TODO: 레코드 업데이트 함수 구현 필요
+      alert("레코드 이름이 수정되었습니다.");
+      setIsEditNameModalOpen(false);
+      // 페이지 리로드 또는 상태 업데이트 필요
+      // loadUserMemos();
+    } catch (error) {
+      console.error("삭제 실패:", error);
+      alert("삭제에 실패했습니다.");
     }
   };
 
@@ -110,6 +126,16 @@ const RecordDetail = () => {
         onClose={() => setIsEditModalOpen(false)}
         onEdit={handleModalEdit}
         onDelete={handleModalDelete}
+      />
+      <EditInputModal
+        isOpen={isEditNameModalOpen}
+        onClose={() => setIsEditNameModalOpen(false)}
+        onSave={handleSaveRecordName}
+        title={"레코드 이름 수정"}
+        fieldName={"recordName"}
+        initialValue={currRecord.name}
+        placeholder={"변경할 레코드 이름을 입력해주세요."}
+        isTextarea={false}
       />
 
       {isEmpty ? (
