@@ -4,18 +4,24 @@ import { ReactComponent as IcnFolder } from "../../Assets/folder_open.svg";
 import { ReactComponent as IcnEdit } from "../../Assets/edit.svg";
 import { IoIosMore } from "react-icons/io";
 
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { fetchRecords } from "../../firebase/firestore/recordsCRUD";
 import "../RecordDetail/RecordDetail.css";
 import styles from "../../Components/components.module.css";
 import FloatingButton from "../../Components/FloatingButton";
-import { fetchMemos, fetchPins } from "../../firebase/firestore/pinsCRUD";
+import {
+  deletePin,
+  fetchMemos,
+  fetchPins,
+  updatePinDesc,
+} from "../../firebase/firestore/pinsCRUD";
 import PinMemoCard from "../../Components/PinMemoCard";
 import EditModal from "../../Components/EditModal";
 import EditInputModal from "../../Components/EditInputModal";
 
 const PinDetail = () => {
   const params = useParams();
+  const navigate = useNavigate();
 
   const [isEmpty, setIsEmpty] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -68,19 +74,25 @@ const PinDetail = () => {
     loadUserMemos();
   };
 
-  // 모달 관련 핸들러
+  // 모달 관련 핸들러 -----------------------------------
   const handleModalEdit = () => {
     setIsEditModalOpen(false);
     setIsEditDescModalOpen(true);
   };
 
-  const handleModalDelete = async () => {
+  // 핀 삭제 핸들러
+  const handlePinDelete = async () => {
+    // const auth = getAuth();
+    // const user = auth.currentUser;
+    const user = localStorage.getItem("anonUserid");
+
     if (window.confirm("정말 이 핀을 삭제하시겠습니까?")) {
       try {
-        // await 핀삭제 TODO: 핀 삭제 함수 구현 필요
+        await deletePin(user, params.recordId, params.pinId);
         alert("핀이 삭제되었습니다.");
         setIsEditModalOpen(false);
-        // 페이지 리로드 또는 상태 업데이트 필요
+
+        navigate("/recordDetail/" + params.recordId);
       } catch (error) {
         console.error("삭제 실패:", error);
         alert("삭제에 실패했습니다.");
@@ -88,18 +100,24 @@ const PinDetail = () => {
     }
   };
 
-  const handleSavePinDesc = async (newDesc) => {
+  // 핀 설명 저장 핸들러
+  const handleUpdatePinDesc = async (newDesc) => {
+    // const auth = getAuth();
+    // const user = auth.currentUser;
+    const user = localStorage.getItem("anonUserid");
+
     try {
-      // await updatePin(user, recordId, pinId, {pinDesc: newDesc}) TODO: 핀업데이트 함수 구현 필요
+      await updatePinDesc(user, params.recordId, params.pinId, newDesc);
       alert("핀 설명이 수정되었습니다.");
       setIsEditDescModalOpen(false);
-      // 페이지 리로드 또는 상태 업데이트 필요
-      // loadUserMemos();
+
+      loadUserMemos();
     } catch (error) {
       console.error("삭제 실패:", error);
       alert("삭제에 실패했습니다.");
     }
   };
+  // ------------------------------------------------
 
   useEffect(() => {
     loadUserMemos();
@@ -143,12 +161,12 @@ const PinDetail = () => {
         title={"핀 관리"}
         onClose={() => setIsEditModalOpen(false)}
         onEdit={handleModalEdit}
-        onDelete={handleModalDelete}
+        onDelete={handlePinDelete}
       />
       <EditInputModal
         isOpen={isEditDescModalOpen}
         onClose={() => setIsEditDescModalOpen(false)}
-        onSave={handleSavePinDesc}
+        onSave={handleUpdatePinDesc}
         title={"핀 설명 수정"}
         fieldName={"pinDesc"}
         initialValue={pinData.pinDesc}

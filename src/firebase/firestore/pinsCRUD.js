@@ -33,7 +33,7 @@ function getMemosCollection(userId, recordId, pinId) {
     recordId,
     "pins",
     pinId,
-    "memos"
+    "memos",
   );
 }
 
@@ -48,7 +48,7 @@ function getMemoDoc(userId, recordId, pinId, memoId) {
     "pins",
     pinId,
     "memos",
-    memoId
+    memoId,
   );
 }
 // --------------------------------------------------------------------------------------------------
@@ -62,6 +62,26 @@ async function addPin(userId, newPin, recordId) {
     pinId: newPinDocRef.id,
   });
   console.log("Pin added successfully");
+}
+
+async function updatePinDesc(userId, recordId, pinId, newPinDesc) {
+  const pinRef = getPinDoc(userId, recordId, pinId);
+
+  await updateDoc(pinRef, {
+    pinDesc: newPinDesc,
+  });
+  console.log("Pin updated successfully");
+}
+
+async function deletePin(userId, recordId, pinId) {
+  const pinRef = getPinDoc(userId, recordId, pinId);
+
+  try {
+    await deleteDoc(pinRef);
+    console.log("Pin deleted successfully");
+  } catch (error) {
+    console.error("Error deleting pin: ", error);
+  }
 }
 
 async function fetchPins(userId, recordId) {
@@ -81,7 +101,7 @@ async function updatePinAndRecordStats(
   userId,
   recordId,
   pinId,
-  memoCountChange
+  memoCountChange,
 ) {
   const recordDocRef = doc(db, "users", userId, "records", recordId);
   const pinDocRef = getPinDoc(userId, recordId, pinId);
@@ -143,4 +163,12 @@ async function deleteMemo(userId, recordId, pinId, memoId) {
   }
 }
 
-export { addPin, fetchPins, addMemo, fetchMemos, deleteMemo };
+export {
+  addPin,
+  updatePinDesc,
+  deletePin,
+  fetchPins,
+  addMemo,
+  fetchMemos,
+  deleteMemo,
+};

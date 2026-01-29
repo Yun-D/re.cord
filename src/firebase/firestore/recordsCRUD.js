@@ -1,4 +1,11 @@
-import { doc, collection, setDoc, getDocs } from "firebase/firestore";
+import {
+  doc,
+  collection,
+  setDoc,
+  getDocs,
+  updateDoc,
+  deleteDoc,
+} from "firebase/firestore";
 import { db } from "../firebase";
 
 async function addRecord(userId, newRecord) {
@@ -10,6 +17,27 @@ async function addRecord(userId, newRecord) {
     recordId: newRecordDocRef.id,
   });
   console.log("Record added successfully");
+}
+
+async function updateRecordName(userId, recordId, newRecordName) {
+  const recordRef = doc(db, "users", userId, "records", recordId);
+
+  await updateDoc(recordRef, {
+    name: newRecordName,
+  });
+
+  console.log("Record updated successfully");
+}
+
+async function deleteRecord(userId, recordId) {
+  const recordRef = doc(db, "users", userId, "records", recordId);
+
+  try {
+    await deleteDoc(recordRef);
+    console.log("Record deleted successfully");
+  } catch (error) {
+    console.error("Error deleting record: ", error);
+  }
 }
 
 async function fetchRecords(userId) {
@@ -24,4 +52,4 @@ async function fetchRecords(userId) {
   }
 }
 
-export { addRecord, fetchRecords };
+export { addRecord, updateRecordName, deleteRecord, fetchRecords };
