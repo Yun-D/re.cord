@@ -7,26 +7,29 @@ import { useNavigate } from "react-router-dom";
 
 import { addPin } from "../../../firebase/firestore/pinsCRUD";
 import { addWish } from "../../../firebase/firestore/wishesCRUD";
+import { getCurrentUserId } from "../../../firebase/auth";
 
 const PinStepFinal = ({ pinData, isWishPage }) => {
   const navigate = useNavigate();
-  const user = localStorage.getItem("anonUserid");
+  const userId = getCurrentUserId();
   const [description, setDescription] = useState("");
 
   const handleAddPlace = async (e) => {
     e.preventDefault();
     const baseData = { ...pinData, pinDesc: description };
 
+    if (!userId) return;
+
     try {
       if (!isWishPage) {
         // 핀 추가 (recordId 필요)
         const finalData = baseData;
-        await addPin(user, finalData, finalData.recordId);
+        await addPin(userId, finalData, finalData.recordId);
         navigate(`/recordDetail/` + finalData.recordId);
       } else {
         // 위시 추가(recordId 제거)
         const { recordId, ...wishData } = baseData;
-        await addWish(user, wishData);
+        await addWish(userId, wishData);
         navigate(`/wish`);
       }
     } catch (error) {

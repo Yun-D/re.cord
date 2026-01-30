@@ -5,20 +5,21 @@ import { fetchWishes } from "../firebase/firestore/wishesCRUD";
 import WishCard from "../Components/WishCard";
 import FloatingButton from "../Components/FloatingButton";
 import { ReactComponent as IcnEdit } from "../Assets/edit.svg";
+import { getCurrentUserId } from "../firebase/auth";
 
 const Wish = () => {
   const [isEmpty, setIsEmpty] = useState(true);
   const [loading, setLoading] = useState(false);
   const [wishes, setWishes] = useState([]);
 
-  // const auth = getAuth();
-  // const user = auth.currentUser;
-  const user = localStorage.getItem("anonUserid");
+  const userId = getCurrentUserId();
 
   const loadUserWishes = async () => {
+    if (!userId) return;
+
     try {
       setLoading(true);
-      const data = await fetchWishes(user);
+      const data = await fetchWishes(userId);
 
       if (data.length > 0) {
         setIsEmpty(false);

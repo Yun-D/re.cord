@@ -18,10 +18,13 @@ import {
 import PinMemoCard from "../../Components/PinMemoCard";
 import EditModal from "../../Components/EditModal";
 import EditInputModal from "../../Components/EditInputModal";
+import { getCurrentUserId } from "../../firebase/auth";
 
 const PinDetail = () => {
   const params = useParams();
   const navigate = useNavigate();
+
+  const userId = getCurrentUserId();
 
   const [isEmpty, setIsEmpty] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -34,26 +37,24 @@ const PinDetail = () => {
   const [isEditDescModalOpen, setIsEditDescModalOpen] = useState(false);
 
   const loadUserMemos = async () => {
+    if (!userId) return;
+
     try {
       setLoading(true);
 
-      // const auth = getAuth();
-      // const user = auth.currentUser;
-      const user = localStorage.getItem("anonUserid");
-
       // 레코드 데이터 페칭 FIXME: 나중에 이부분은 리팩토링 필요(중복제거)
-      const rData = await fetchRecords(user); // 모든 레코드 불러오기
+      const rData = await fetchRecords(userId); // 모든 레코드 불러오기
       const recordId = params.recordId;
       const currRecord = rData.find((item) => item.recordId === recordId);
       setCurrRecordName(currRecord.name);
 
       // 핀 데이터 페칭
-      const pData = await fetchPins(user, recordId); // 현재 레코드의 핀 불러오기
+      const pData = await fetchPins(userId, recordId); // 현재 레코드의 핀 불러오기
       const currPin = pData.find((item) => item.pinId === params.pinId);
       setPinData(currPin);
 
       // 메모 데이터 페칭
-      const memoData = await fetchMemos(user, recordId, currPin.pinId);
+      const memoData = await fetchMemos(userId, recordId, currPin.pinId);
       setPinMemos(memoData);
 
       if (memoData.length > 0) {
@@ -82,13 +83,9 @@ const PinDetail = () => {
 
   // 핀 삭제 핸들러
   const handlePinDelete = async () => {
-    // const auth = getAuth();
-    // const user = auth.currentUser;
-    const user = localStorage.getItem("anonUserid");
-
     if (window.confirm("정말 이 핀을 삭제하시겠습니까?")) {
       try {
-        await deletePin(user, params.recordId, params.pinId);
+        await deletePin(userId, params.recordId, params.pinId);
         alert("핀이 삭제되었습니다.");
         setIsEditModalOpen(false);
 
@@ -102,12 +99,8 @@ const PinDetail = () => {
 
   // 핀 설명 저장 핸들러
   const handleUpdatePinDesc = async (newDesc) => {
-    // const auth = getAuth();
-    // const user = auth.currentUser;
-    const user = localStorage.getItem("anonUserid");
-
     try {
-      await updatePinDesc(user, params.recordId, params.pinId, newDesc);
+      await updatePinDesc(userId, params.recordId, params.pinId, newDesc);
       alert("핀 설명이 수정되었습니다.");
       setIsEditDescModalOpen(false);
 

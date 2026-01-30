@@ -18,6 +18,7 @@ import {
 import { fetchPins } from "../../firebase/firestore/pinsCRUD";
 import KakaoMap from "../../Components/KakaoMap";
 import EditInputModal from "../../Components/EditInputModal";
+import { getCurrentUserId } from "../../firebase/auth";
 
 const RecordDetail = () => {
   const [isEmpty, setIsEmpty] = useState(true);
@@ -30,20 +31,19 @@ const RecordDetail = () => {
 
   const navigate = useNavigate();
   const { recordId } = useParams(); // URL 파라미터에서 recordId 추출
+  const userId = getCurrentUserId();
 
   const loadUserPins = async () => {
+    if (!userId) return;
+
     try {
       setLoading(true);
 
-      // const auth = getAuth();
-      // const user = auth.currentUser;
-      const user = localStorage.getItem("anonUserid");
-
-      const data = await fetchRecords(user, recordId); // 모든 레코드 불러오기
+      const data = await fetchRecords(userId, recordId); // 모든 레코드 불러오기
       const record = data.find((item) => item.recordId === recordId); // 현재 레코드 찾기
       setCurrRecord(record);
 
-      const pinsData = await fetchPins(user, recordId); // 현재 레코드의 핀 불러오기
+      const pinsData = await fetchPins(userId, recordId); // 현재 레코드의 핀 불러오기
 
       if (record && pinsData.length > 0) {
         setIsEmpty(false);
@@ -68,13 +68,9 @@ const RecordDetail = () => {
 
   // 레코드 삭제 핸들러
   const handleRecordDelete = async () => {
-    // const auth = getAuth();
-    // const user = auth.currentUser;
-    const user = localStorage.getItem("anonUserid");
-
     if (window.confirm("정말 이 레코드를 삭제하시겠습니까?")) {
       try {
-        await deleteRecord(user, recordId);
+        await deleteRecord(userId, recordId);
         alert("레코드가 삭제되었습니다.");
         setIsEditModalOpen(false);
 
@@ -88,12 +84,8 @@ const RecordDetail = () => {
 
   // 레코드 이름 수정 저장 핸들러
   const handleUpdateRecordName = async (newName) => {
-    // const auth = getAuth();
-    // const user = auth.currentUser;
-    const user = localStorage.getItem("anonUserid");
-
     try {
-      await updateRecordName(user, recordId, newName);
+      await updateRecordName(userId, recordId, newName);
       alert("레코드 이름이 수정되었습니다.");
       setIsEditNameModalOpen(false);
 

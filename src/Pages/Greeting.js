@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { auth, db } from "../firebase/firebase";
-import { signInAnonymously } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore"; //문서 참조 생성, 데이터 저장기능
-
 import "./Greeting.css";
 import Button from "../Components/Button";
+import { signInWithNickname } from "../firebase/auth";
 
 const Greeting = () => {
   const [nickname, setNickname] = useState("");
@@ -21,29 +18,15 @@ const Greeting = () => {
       return;
     }
 
-    // 익명 로그인 시도
     try {
       setLoading(true);
-      localStorage.setItem("nickname", nickname); // 로컬스토리지에 닉네임 저장
+      localStorage.setItem("nickname", nickname); //로컬스토리지에 닉네임 저장
 
-      const cred = await signInAnonymously(auth); // 익명 로그인 시도, 사용자 인증 정보 획득
-
-      // Firestore에 사용자 정보 저장
-      const userDocRef = doc(db, "users", cred.user.uid);
-      await setDoc(
-        userDocRef,
-        {
-          uid: cred.user.uid,
-          anonymous: cred.user.isAnonymous,
-          nickname: nickname,
-          lastLogin: new Date().toISOString(),
-        },
-        { merge: true }
-      );
-
-      navigate("/record"); // 로그인 후 홈으로 이동
-    } catch (err) {
-      console.error("로그인 오류: ", err.message);
+      await signInWithNickname(nickname);
+      navigate("/record"); //로그인 후 레코드 페이지(메인)로 이동
+    } catch (error) {
+      console.error("로그인 오류:", error);
+      alert("로그인 중 오류가 발생했습니다. 다시 시도해주세요.");
     } finally {
       setLoading(false);
     }

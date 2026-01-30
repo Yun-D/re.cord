@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Routes, useLocation, Navigate } from "react-router-dom";
 
 import "./App.css";
@@ -7,7 +7,6 @@ import Header from "./Components/Header";
 import TitleHeader from "./Components/TitleHeader";
 import Navbar from "./Components/Navbar";
 
-import ProtectedRoute from "./Components/ProtectedRoute";
 import Greeting from "./Pages/Greeting";
 import Records from "./Pages/Records";
 import AddRecord from "./Pages/AddRecord";
@@ -16,6 +15,7 @@ import AddPin from "./Pages/Pin/AddPin";
 import Wish from "./Pages/Wish";
 import PinDetail from "./Pages/Pin/PinDetail";
 import AddMemo from "./Pages/Pin/AddMemo";
+import { checkAuthState } from "./firebase/auth";
 
 const MainLayout = () => {
   const thisLocation = useLocation(); //현재 위치
@@ -28,7 +28,7 @@ const MainLayout = () => {
 
   // 해당 경로가 titleHeaderPages의 키 중 하나로 시작하는지 확인
   const matchedKey = Object.keys(titleHeaderPages).find((key) =>
-    thisLocation.pathname.startsWith(key)
+    thisLocation.pathname.startsWith(key),
   );
   const title = titleHeaderPages[matchedKey] || "";
   const isTitleHeader = !!title; //title이 존재하지 않으면 false
@@ -36,6 +36,17 @@ const MainLayout = () => {
   // 특정 페이지에서 UI 숨기기
   const hideNav = thisLocation.pathname === "/greeting"; //네비게이션 바
   const hideAddPin = thisLocation.pathname === "/addPin"; //장소추가 멀티스텝폼
+
+  const [isAuthChecked, setIsAuthChecked] = useState(false); // 파이어베이스 인증 상태 확인
+  const [isAuthenticated, setIsAuthenticated] = useState(false); // 사용자 로그인 상태 확인
+
+  useEffect(() => {
+    // 앱 시작 시 인증 상태 확인
+    checkAuthState().then((user) => {
+      setIsAuthenticated(!!user);
+      setIsAuthChecked(true);
+    });
+  }, []);
 
   return (
     <div className="app-container">
@@ -49,15 +60,17 @@ const MainLayout = () => {
         ) : null}
         <div className="content">
           <Routes>
-            <Route path="/" element={<Navigate to="/greeting" />} />
             <Route
-              path="/greeting"
+              path="/"
               element={
-                <ProtectedRoute>
-                  <Greeting />
-                </ProtectedRoute>
+                isAuthenticated ? (
+                  <Navigate to="/record" />
+                ) : (
+                  <Navigate to="/greeting" />
+                )
               }
             />
+            <Route path="/greeting" element={<Greeting />} />
             <Route path="/record" element={<Records />} />
             <Route path="/addRecord" element={<AddRecord />} />
             <Route path="/recordDetail/:recordId" element={<RecordDetail />} />

@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./components.module.css";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { deleteMemo } from "../firebase/firestore/pinsCRUD";
+import { getCurrentUserId } from "../firebase/auth";
 
 // 핀 디테일 페이지에서 사용되는, 메모 조회용 컴포넌트(날짜 + 제목 + 별점 + 리뷰 + 삭제버튼)
 const PinMemoCard = ({
@@ -14,15 +15,15 @@ const PinMemoCard = ({
   memoId,
   onDeleteSuccess,
 }) => {
-  // const auth = getAuth();
-  // const user = auth.currentUser;
-  const user = localStorage.getItem("anonUserid");
+  const userId = getCurrentUserId();
 
   const handleDelete = async () => {
+    if (!userId) return;
+
     const isConfirmed = window.confirm("이 메모를 삭제할까요?");
     if (isConfirmed) {
       try {
-        await deleteMemo(user, recordId, pinId, memoId);
+        await deleteMemo(userId, recordId, pinId, memoId);
         onDeleteSuccess(); // 부모 컴포넌트에 삭제 성공 알림
         console.log("Memo deleted successfully");
       } catch (error) {
@@ -40,7 +41,7 @@ const PinMemoCard = ({
           flexShrink: 0,
           border: `var(--border-size) solid var(--color-line-black)`,
         }}
-        //사진 영역
+        //FIXME: 사진 영역
       />
 
       <div

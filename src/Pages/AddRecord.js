@@ -6,13 +6,14 @@ import styles from "../Components/components.module.css";
 import record from "../Assets/recordpan.svg";
 import { ReactComponent as IcnHeart } from "../Assets/heart.svg";
 
-import { addRecord } from "../firebase/firestore/recordsCRUD"; // API 함수 임포트
+import { addRecord } from "../firebase/firestore/recordsCRUD";
+import { getCurrentUserId } from "../firebase/auth.js";
 
 import "./Records.css";
 
 const AddRecord = () => {
   const navigate = useNavigate();
-  const user = localStorage.getItem("anonUserid");
+  const userId = getCurrentUserId();
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -23,6 +24,8 @@ const AddRecord = () => {
       return;
     }
 
+    if (!userId) return;
+
     e.preventDefault();
     const newRecord = {
       recordId: Date.now().toString(),
@@ -30,7 +33,7 @@ const AddRecord = () => {
       description: description,
     };
     try {
-      await addRecord(user, newRecord);
+      await addRecord(userId, newRecord);
       navigate("/record");
     } catch (error) {
       console.error("Error adding record: ", error);

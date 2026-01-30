@@ -4,6 +4,7 @@ import ImageFrame from "../../Components/ImageFrame";
 import { useLocation, useNavigate } from "react-router-dom";
 import StarRating from "../../Components/StarRating";
 import { addMemo } from "../../firebase/firestore/pinsCRUD";
+import { getCurrentUserId } from "../../firebase/auth";
 
 const AddMemo = () => {
   // 오늘 날짜 구하기
@@ -18,12 +19,9 @@ const AddMemo = () => {
   const [rating, setRating] = useState(3); //기본값은 3점
   const [date, setDate] = useState(formattedToday);
 
-  // const auth = getAuth();
-  // const user = auth.currentUser;
-  const user = localStorage.getItem("anonUserid");
-
   const navigate = useNavigate();
   const currPinData = useLocation().state;
+  const userId = getCurrentUserId();
 
   const handleAddMemo = async (e) => {
     if (!date.trim() || !title.trim() || !review.trim()) {
@@ -40,7 +38,7 @@ const AddMemo = () => {
     e.preventDefault();
 
     try {
-      await addMemo(user, currPinData.recordId, currPinData.pinId, finalData);
+      await addMemo(userId, currPinData.recordId, currPinData.pinId, finalData);
       navigate(
         `/recordDetail/${currPinData.recordId}/pinDetail/${currPinData.pinId}`,
       );
