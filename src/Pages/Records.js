@@ -39,7 +39,6 @@ const Record = () => {
       const data = await fetchRecords(userId);
       setRecords(data);
       setIsEmpty(data.length === 0);
-      console.log(data);
     } catch (error) {
       console.error("Error fetching records: ", error);
       setIsEmpty(true);

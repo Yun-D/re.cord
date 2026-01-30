@@ -22,7 +22,7 @@ const WishCard = ({
       try {
         await deleteWish(userId, wishId);
         onDeleteSuccess(); // 부모 컴포넌트에 삭제 성공 알림
-        console.log("Wish deleted successfully");
+        //console.log("Wish deleted successfully");
       } catch (error) {
         console.error("Error deleting wish: ", error);
       }

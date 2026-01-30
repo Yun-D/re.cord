@@ -16,7 +16,7 @@ async function addRecord(userId, newRecord) {
     ...newRecord,
     recordId: newRecordDocRef.id,
   });
-  console.log("Record added successfully");
+  //console.log("Record added successfully");
 }
 
 async function updateRecordName(userId, recordId, newRecordName) {
@@ -26,7 +26,7 @@ async function updateRecordName(userId, recordId, newRecordName) {
     name: newRecordName,
   });
 
-  console.log("Record updated successfully");
+  //console.log("Record updated successfully");
 }
 
 async function deleteRecord(userId, recordId) {
@@ -34,9 +34,9 @@ async function deleteRecord(userId, recordId) {
 
   try {
     await deleteDoc(recordRef);
-    console.log("Record deleted successfully");
+    //console.log("Record deleted successfully");
   } catch (error) {
-    console.error("Error deleting record: ", error);
+    //console.error("Error deleting record: ", error);
   }
 }
 
@@ -47,7 +47,7 @@ async function fetchRecords(userId) {
   if (!recordSnap.empty) {
     return recordSnap.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   } else {
-    console.log("No such document!");
+    //console.log("No such document!");
     return [];
   }
 }

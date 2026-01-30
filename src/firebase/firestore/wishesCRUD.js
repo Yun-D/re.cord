@@ -15,7 +15,7 @@ async function addWish(userId, newWish) {
     ...newWish,
     wishId: newWishDocRef.id,
   });
-  console.log("Wish added successfully");
+  //console.log("Wish added successfully");
 }
 
 async function fetchWishes(userId) {
@@ -25,7 +25,7 @@ async function fetchWishes(userId) {
   if (!wishSnap.empty) {
     return wishSnap.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   } else {
-    console.log("No such document!");
+    //console.log("No such document!");
     return [];
   }
 }
@@ -35,7 +35,7 @@ async function deleteWish(userId, wishId) {
 
   try {
     await deleteDoc(wishRef);
-    console.log(`${wishId} 문서 삭제 완료`);
+    //console.log(`${wishId} 문서 삭제 완료`);
   } catch (error) {
     console.error("위시 삭제 중 오류: ", error);
   }

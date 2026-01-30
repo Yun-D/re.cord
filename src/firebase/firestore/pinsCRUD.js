@@ -61,7 +61,7 @@ async function addPin(userId, newPin, recordId) {
     ...newPin,
     pinId: newPinDocRef.id,
   });
-  console.log("Pin added successfully");
+  //console.log("Pin added successfully");
 }
 
 async function updatePinDesc(userId, recordId, pinId, newPinDesc) {
@@ -70,7 +70,7 @@ async function updatePinDesc(userId, recordId, pinId, newPinDesc) {
   await updateDoc(pinRef, {
     pinDesc: newPinDesc,
   });
-  console.log("Pin updated successfully");
+  //console.log("Pin updated successfully");
 }
 
 async function deletePin(userId, recordId, pinId) {
@@ -78,7 +78,7 @@ async function deletePin(userId, recordId, pinId) {
 
   try {
     await deleteDoc(pinRef);
-    console.log("Pin deleted successfully");
+    //console.log("Pin deleted successfully");
   } catch (error) {
     console.error("Error deleting pin: ", error);
   }
@@ -91,7 +91,7 @@ async function fetchPins(userId, recordId) {
   if (!pinSnap.empty) {
     return pinSnap.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   } else {
-    console.log("No such document!");
+    //console.log("No such document!");
     return [];
   }
 }
@@ -133,7 +133,7 @@ async function addMemo(userId, recordId, pinId, newMemo) {
     ...newMemo,
     memoId: newMemoDocRef.id,
   });
-  console.log("Memo added successfully");
+  //console.log("Memo added successfully");
 
   await updatePinAndRecordStats(userId, recordId, pinId, 1);
 }
@@ -145,7 +145,7 @@ async function fetchMemos(userId, recordId, pinId) {
   if (!memoSnap.empty) {
     return memoSnap.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   } else {
-    console.log("No such document!");
+    //console.log("No such document!");
     return [];
   }
 }
@@ -155,7 +155,7 @@ async function deleteMemo(userId, recordId, pinId, memoId) {
 
   try {
     await deleteDoc(memoRef);
-    console.log(`${memoId} 문서 삭제 완료`);
+    //console.log(`${memoId} 문서 삭제 완료`);
 
     await updatePinAndRecordStats(userId, recordId, pinId, -1);
   } catch (error) {
