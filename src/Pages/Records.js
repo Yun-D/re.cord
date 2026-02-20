@@ -16,6 +16,7 @@ const Record = () => {
   const [user, setUser] = useState(null);
   const [records, setRecords] = useState(null);
   const [isEmpty, setIsEmpty] = useState(true);
+  const [dataLoading, setDataLoading] = useState(false); // 데이터 페칭 상황 추적
 
   useEffect(() => {
     // 로그인 상태 감지. 로그인,아웃 시 실행
@@ -36,20 +37,23 @@ const Record = () => {
       const userId = getCurrentUserId();
       if (!userId) return;
 
+      setDataLoading(true);
       const data = await fetchRecords(userId);
       setRecords(data);
       setIsEmpty(data.length === 0);
     } catch (error) {
       console.error("Error fetching records: ", error);
       setIsEmpty(true);
+    } finally {
+      setDataLoading(false);
     }
   };
 
   useEffect(() => {
     loadUserRecords();
-  }, []);
+  }, [user]);
 
-  if (!records && !user) return <div>로딩중...</div>;
+  if (dataLoading || !user) return <div>로딩중...</div>;
   return (
     <div>
       {/* <h3 className="no-margin">{nickname}님, 오늘은 어디로 가볼까요?</h3>

@@ -99,7 +99,7 @@ const RecordDetail = () => {
   // ------------------------------------
   useEffect(() => {
     loadUserPins();
-  }, [recordId]);
+  }, [recordId, userId]);
 
   if (loading) return <div>로딩중...</div>;
 

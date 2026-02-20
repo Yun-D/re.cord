@@ -43,7 +43,7 @@ const Wish = () => {
 
   useEffect(() => {
     loadUserWishes();
-  }, []);
+  }, [userId]);
 
   if (loading) return <div>로딩중...</div>;
   return (
