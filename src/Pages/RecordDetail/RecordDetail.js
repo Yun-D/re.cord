@@ -19,6 +19,7 @@ import { fetchPins } from "../../firebase/firestore/pinsCRUD";
 import KakaoMap from "../../Components/KakaoMap";
 import EditInputModal from "../../Components/EditInputModal";
 import { getCurrentUserId } from "../../firebase/auth";
+import useModal from "../../Hooks/useModal";
 
 const RecordDetail = () => {
   const [isEmpty, setIsEmpty] = useState(true);
@@ -26,8 +27,10 @@ const RecordDetail = () => {
   const [currRecord, setCurrRecord] = useState([]); // 현재 레코드 정보
   const [pins, setPins] = useState([]);
 
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [isEditNameModalOpen, setIsEditNameModalOpen] = useState(false);
+  const { modals, openModal, closeModal, switchModal } = useModal([
+    "edit",
+    "editName",
+  ]);
 
   const navigate = useNavigate();
   const { recordId } = useParams(); // URL 파라미터에서 recordId 추출
@@ -62,8 +65,7 @@ const RecordDetail = () => {
 
   // 모달 관련 핸들러
   const handleModalEdit = () => {
-    setIsEditModalOpen(false);
-    setIsEditNameModalOpen(true);
+    switchModal("edit", "editName");
   };
 
   // 레코드 삭제 핸들러
@@ -72,7 +74,7 @@ const RecordDetail = () => {
       try {
         await deleteRecord(userId, recordId);
         alert("레코드가 삭제되었습니다.");
-        setIsEditModalOpen(false);
+        closeModal("edit");
 
         navigate("/record");
       } catch (error) {
@@ -87,7 +89,7 @@ const RecordDetail = () => {
     try {
       await updateRecordName(userId, recordId, newName);
       alert("레코드 이름이 수정되었습니다.");
-      setIsEditNameModalOpen(false);
+      closeModal("editName");
 
       loadUserPins();
     } catch (error) {
@@ -101,7 +103,12 @@ const RecordDetail = () => {
     loadUserPins();
   }, [recordId, userId]);
 
-  if (loading) return <div>로딩중...</div>;
+  if (loading)
+    return (
+      <div className="loading-container bg-white">
+        <div className="roll-box"></div>
+      </div>
+    );
 
   return (
     <div>
@@ -124,7 +131,7 @@ const RecordDetail = () => {
           <button
             className={`${styles.button} ${styles.deleteBtn}`}
             style={{ backgroundColor: "white" }}
-            onClick={() => setIsEditModalOpen(true)}
+            onClick={() => openModal("edit")}
           >
             <IoIosMore />
           </button>
@@ -132,15 +139,15 @@ const RecordDetail = () => {
       </div>
       {/* -------------------- */}
       <EditModal
-        isOpen={isEditModalOpen}
+        isOpen={modals.edit}
         title={"레코드 관리"}
-        onClose={() => setIsEditModalOpen(false)}
+        onClose={() => closeModal("edit")}
         onEdit={handleModalEdit}
         onDelete={handleRecordDelete}
       />
       <EditInputModal
-        isOpen={isEditNameModalOpen}
-        onClose={() => setIsEditNameModalOpen(false)}
+        isOpen={modals.editName}
+        onClose={() => closeModal("editName")}
         onSave={handleUpdateRecordName}
         title={"레코드 이름 수정"}
         fieldName={"recordName"}

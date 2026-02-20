@@ -19,6 +19,7 @@ import PinMemoCard from "../../Components/PinMemoCard";
 import EditModal from "../../Components/EditModal";
 import EditInputModal from "../../Components/EditInputModal";
 import { getCurrentUserId } from "../../firebase/auth";
+import useModal from "../../Hooks/useModal";
 
 const PinDetail = () => {
   const params = useParams();
@@ -33,8 +34,10 @@ const PinDetail = () => {
   const [pinData, setPinData] = useState("");
   const [pinMemos, setPinMemos] = useState(null);
 
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [isEditDescModalOpen, setIsEditDescModalOpen] = useState(false);
+  const { modals, openModal, closeModal, switchModal } = useModal([
+    "edit",
+    "editDesc",
+  ]);
 
   const loadUserMemos = async () => {
     if (!userId) return;
@@ -77,8 +80,7 @@ const PinDetail = () => {
 
   // 모달 관련 핸들러 -----------------------------------
   const handleModalEdit = () => {
-    setIsEditModalOpen(false);
-    setIsEditDescModalOpen(true);
+    switchModal("edit", "editDesc");
   };
 
   // 핀 삭제 핸들러
@@ -87,7 +89,7 @@ const PinDetail = () => {
       try {
         await deletePin(userId, params.recordId, params.pinId);
         alert("핀이 삭제되었습니다.");
-        setIsEditModalOpen(false);
+        closeModal("edit");
 
         navigate("/recordDetail/" + params.recordId);
       } catch (error) {
@@ -102,7 +104,7 @@ const PinDetail = () => {
     try {
       await updatePinDesc(userId, params.recordId, params.pinId, newDesc);
       alert("핀 설명이 수정되었습니다.");
-      setIsEditDescModalOpen(false);
+      closeModal("editDesc");
 
       loadUserMemos();
     } catch (error) {
@@ -116,7 +118,12 @@ const PinDetail = () => {
     loadUserMemos();
   }, [userId]);
 
-  if (loading) return <div>로딩중...</div>;
+  if (loading)
+    return (
+      <div className="loading-container bg-white">
+        <div className="roll-box"></div>
+      </div>
+    );
   return (
     <div>
       <div className="row-direction-between">
@@ -130,7 +137,7 @@ const PinDetail = () => {
         <button
           className={`${styles.button} ${styles.deleteBtn}`}
           style={{ backgroundColor: "white" }}
-          onClick={() => setIsEditModalOpen(true)}
+          onClick={() => openModal("edit")}
         >
           <IoIosMore />
         </button>
@@ -150,15 +157,15 @@ const PinDetail = () => {
       </div>
 
       <EditModal
-        isOpen={isEditModalOpen}
+        isOpen={modals.edit}
         title={"핀 관리"}
-        onClose={() => setIsEditModalOpen(false)}
+        onClose={() => closeModal("edit")}
         onEdit={handleModalEdit}
         onDelete={handlePinDelete}
       />
       <EditInputModal
-        isOpen={isEditDescModalOpen}
-        onClose={() => setIsEditDescModalOpen(false)}
+        isOpen={modals.editDesc}
+        onClose={() => closeModal("editDesc")}
         onSave={handleUpdatePinDesc}
         title={"핀 설명 수정"}
         fieldName={"pinDesc"}
