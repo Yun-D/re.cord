@@ -50,7 +50,11 @@ const MainLayout = () => {
 
   // 인증 체크가 완료될 때까지 로딩 화면 표시
   if (!isAuthChecked) {
-    return <div>로딩중...</div>;
+    return (
+      <div className="loading-container">
+        <div className="spinner"></div>
+      </div>
+    );
   }
 
   return (

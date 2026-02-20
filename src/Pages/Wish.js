@@ -45,7 +45,12 @@ const Wish = () => {
     loadUserWishes();
   }, [userId]);
 
-  if (loading) return <div>로딩중...</div>;
+  if (loading)
+    return (
+      <div className="loading-container bg-white">
+        <div className="roll-box"></div>
+      </div>
+    );
   return (
     <div>
       <h2 className="no-margin">위시</h2>

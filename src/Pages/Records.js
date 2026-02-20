@@ -53,7 +53,12 @@ const Record = () => {
     loadUserRecords();
   }, [user]);
 
-  if (dataLoading || !user) return <div>로딩중...</div>;
+  if (dataLoading || !user)
+    return (
+      <div className="loading-container bg-white">
+        <div className="roll-box"></div>
+      </div>
+    );
   return (
     <div>
       {/* <h3 className="no-margin">{nickname}님, 오늘은 어디로 가볼까요?</h3>
