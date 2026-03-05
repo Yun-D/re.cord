@@ -1,70 +1,178 @@
-# Getting Started with Create React App
+# ⏪ 다시(re) 기록하는 방문 일지, 리코드
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> 내가 좋아하는 장소를 아카이빙하고, 방문의 기억을 기록하는 나만의 재방문 일지
 
-## Available Scripts
+<br/>
 
-In the project directory, you can run:
+## 🎯 서비스 소개
 
-### `npm start`
+**re.cord**는 즐겨 찾는 테마별 장소를 아카이빙하고, 장소마다 방문 일지를 남길 수 있는 개인 기록 서비스입니다.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+카페, 전시, 맛집 등 나만의 테마로 **레코드(컬렉션)** 를 만들고, 그 안에 **핀(장소)** 을 추가해 방문 메모와 별점을 남겨보세요. 아직 가보지 못한 곳은 **위시리스트**에 저장해두고 언제든지 꺼내볼 수 있습니다.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+나만의 레코드판에 핀을 더하고 기록을 재생해보세요!💽🎵
 
-### `npm test`
+🔗 **배포 링크**: [https://re-cord-log.vercel.app](https://re-cord-log.vercel.app)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<br/><br/><br/>
 
-### `npm run build`
+## ✨ 주요 기능
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 📁 레코드 (Record)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- 테마별로 장소 컬렉션 생성·관리
+- 레코드별 핀 목록 및 지도 모아보기
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 📌 핀 (Pin)
 
-### `npm run eject`
+- 카카오맵 장소 검색으로 핀 추가 (3단계 폼)
+- 장소 메모 및 별점 등록
+- 핀별 평균 별점 및 메모 수 자동 집계
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 💭 위시 (Wish)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- 방문 예정 장소 위시리스트 저장
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 🗺️ 지도 시각화
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- 레코드 내 전체 핀을 카카오맵으로 시각화하여 위치 파악 가능
 
-## Learn More
+<br/>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🛠️ 기술 스택
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+| 구분             | 사용 기술                                     |
+| ---------------- | --------------------------------------------- |
+| **Frontend**     | React 19, React Router v7                     |
+| **Backend / DB** | Firebase Authentication, Firebase Firestore   |
+| **Map**          | Kakao Maps SDK (`react-kakao-maps-sdk`)       |
+| **Styling**      | CSS Modules, CSS Variables, Pretendard 웹폰트 |
+| **아이콘**       | react-icons                                   |
+| **빌드 도구**    | Create React App (react-scripts)              |
+| **배포**         | Vercel                                        |
 
-### Code Splitting
+<br/>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 📂 프로젝트 구조
 
-### Analyzing the Bundle Size
+```
+src/
+├── Assets/              # SVG 아이콘 및 이미지
+├── Components/          # 공통 UI 컴포넌트
+│   ├── Header.js / TitleHeader.js / Navbar.js
+│   ├── RecordCard.js / WishCard.js / RecordPinCard.js
+│   ├── KakaoMap.js      # 카카오맵 래퍼
+│   ├── StarRating.js    # 별점 컴포넌트
+│   ├── EditModal.js / EditInputModal.js
+│   └── ...
+├── Pages/
+│   ├── Greeting.js      # 온보딩 / 닉네임 로그인
+│   ├── Records.js       # 레코드 목록 메인 화면
+│   ├── AddRecord.js     # 레코드 생성
+│   ├── RecordDetail.js  # 레코드 상세 (핀 목록 + 지도)
+│   ├── Wish.js          # 위시리스트
+│   └── Pin/
+│       ├── AddPin.js    # 핀 추가 (멀티스텝 폼)
+│       ├── PinDetail.js # 핀 상세 (메모 목록)
+│       ├── AddMemo.js   # 메모 작성
+│       └── Steps/       # 장소 검색 → 지도 확인 → 최종 입력
+├── Hooks/
+│   ├── useModal.js      # 모달 상태 관리 커스텀 훅
+│   └── useDrawer.js     # 드로어 상태 관리 커스텀 훅
+├── firebase/
+│   ├── firebase.js      # Firebase 초기화
+│   ├── auth.js          # 인증 (익명 로그인)
+│   └── firestore/
+│       ├── recordsCRUD.js
+│       ├── pinsCRUD.js
+│       └── wishesCRUD.js
+├── App.js
+└── MainLayout.js        # 라우팅 및 인증 상태 관리
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+<br/>
 
-### Making a Progressive Web App
+## 🗄️ Firestore 데이터 구조
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```
+users/{userId}
+├── records/{recordId}
+│   ├── name, description, totalMemoCount
+│   └── pins/{pinId}
+│       ├── place_name, address, lat, lng, pinDesc
+│       ├── memoCount, avgRating, lastUpdated
+│       └── memos/{memoId}
+│           └── rating, content, image, date
+└── wishes/{wishId}
+    └── place_name, address, lat, lng
+```
 
-### Advanced Configuration
+<br/>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## 🚀 시작하기
 
-### Deployment
+### 🔑 환경 변수 설정
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+`.env` 파일을 프로젝트 루트에 생성하고 아래 값을 설정합니다.
 
-### `npm run build` fails to minify
+```env
+REACT_APP_KAKAOMAP_KEY=your_kakao_map_key
+REACT_APP_FIREBASE_API_KEY=your_firebase_api_key
+REACT_APP_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+REACT_APP_FIREBASE_PROJECT_ID=your_project_id
+REACT_APP_FIREBASE_STORAGE_BUCKET=your_project.firebasestorage.app
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+REACT_APP_FIREBASE_APP_ID=your_app_id
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### 💻 설치 및 실행
+
+```bash
+# 의존성 설치
+npm install
+
+# 개발 서버 실행 (localhost:3000)
+npm start
+
+# 프로덕션 빌드
+npm run build
+```
+
+<br/>
+
+## 🎨 화면 구성
+
+| 화면           | 설명                                               |
+| -------------- | -------------------------------------------------- |
+| 👋 온보딩      | 닉네임 입력 후 익명 로그인으로 시작                |
+| 📁 레코드 목록 | 생성한 컬렉션을 바이닐 레코드 카드 형태로 표시     |
+| 📍 레코드 상세 | 레코드 내 핀 목록 및 지도 모아보기                 |
+| ➕ 핀 추가     | 카카오맵 장소 검색 → 지도 확인 → 설명 입력 (3단계) |
+| 📝 핀 상세     | 방문 메모 목록, 평균 별점, 장소 지도               |
+| 💭 위시        | 방문 예정 장소 목록                                |
+
+<br/>
+
+## 🔐 인증 방식
+
+Firebase **익명 인증(Anonymous Authentication)** 을 사용합니다. 별도 회원가입 없이 닉네임만 입력하면 고유한 사용자 ID가 발급되어 데이터가 개인화됩니다.
+
+⚠️ **주의사항**:
+
+- 브라우저 데이터 삭제 시 계정 복구 불가
+- 다른 브라우저/기기에서는 동일 데이터 접근 불가
+
+<br/> <br/>
+
+## 📸 스크린샷
+
+> 주요 화면 스크린샷 추가 예정
+
+<br/>
+
+## 🎯 향후 개선 계획
+
+- [ ] 이메일 계정 연동 기능(데이터 백업)
+- [ ] 이미지 업로드 기능
+- [ ] 방문 통계 대시보드
+- [ ] 공유 기능 (친구와 레코드 공유)
