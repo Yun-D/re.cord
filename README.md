@@ -10,7 +10,7 @@
 
 카페, 전시, 맛집 등 나만의 테마로 **레코드(컬렉션)** 를 만들고, 그 안에 **핀(장소)** 을 추가해 방문 메모와 별점을 남겨보세요. 아직 가보지 못한 곳은 **위시리스트**에 저장해두고 언제든지 꺼내볼 수 있습니다.
 
-나만의 레코드판에 핀을 더하고 기록을 재생해보세요!💽🎵
+나만의 레코드판에 핀을 더하고 기록을 재생해보세요! 💽🎵
 
 🔗 **배포 링크**: [https://re-cord-log.vercel.app](https://re-cord-log.vercel.app)
 
@@ -41,15 +41,13 @@
 
 ## 🛠️ 기술 스택
 
-| 구분             | 사용 기술                                     |
-| ---------------- | --------------------------------------------- |
-| **Frontend**     | React 19, React Router v7                     |
-| **Backend / DB** | Firebase Authentication, Firebase Firestore   |
-| **Map**          | Kakao Maps SDK (`react-kakao-maps-sdk`)       |
-| **Styling**      | CSS Modules, CSS Variables, Pretendard 웹폰트 |
-| **아이콘**       | react-icons                                   |
-| **빌드 도구**    | Create React App (react-scripts)              |
-| **배포**         | Vercel                                        |
+| 구분             | 사용 기술                                   |
+| ---------------- | ------------------------------------------- |
+| **Frontend**     | React 19, React Router v7, CSS Modules      |
+| **Backend / DB** | Firebase Authentication, Firebase Firestore |
+| **Map**          | Kakao Maps SDK (`react-kakao-maps-sdk`)     |
+| **아이콘**       | react-icons                                 |
+| **배포**         | Vercel                                      |
 
 <br/>
 
@@ -166,7 +164,28 @@ Firebase **익명 인증(Anonymous Authentication)** 을 사용합니다. 별도
 
 ## 📸 스크린샷
 
-> 주요 화면 스크린샷 추가 예정
+### 👋 온보딩 -> 레코드 목록 조회
+
+닉네임을 입력하고 간편하게 시작할 수 있습니다. <br/><br/>
+![greeting_gif](https://github.com/user-attachments/assets/d7942ef7-45c5-44ce-9141-c04b7b26e3a8)
+
+<img width="562" height="903" alt="mainpage_record" src="https://github.com/user-attachments/assets/d133fa73-79d4-4ea1-8b99-f768d6919657" />
+
+<br /> 
+<br />
+
+### 📝 핀 추가, 메모 추가
+
+장소를 검색해 핀을 추가하고, 방문할 때마다 메모(리뷰)를 남길 수 있습니다. <br/><br/>
+![pin add_gif](https://github.com/user-attachments/assets/8c5a51c4-10fb-42ed-946b-5d245b0ad5fd)
+![memoadd_gif](https://github.com/user-attachments/assets/aa410989-8825-4d50-bf96-5328ad5aa18c)
+
+<br /> <br />
+
+### 💭 위시
+
+가보고싶은 장소를 저장해두고 언제든지 확인할 수 있습니다. <br/><br/>
+<img width="567" height="903" alt="Image" src="https://github.com/user-attachments/assets/24d454b9-6a56-465a-86cb-35d20c467172" />
 
 <br/>
 
@@ -174,5 +193,6 @@ Firebase **익명 인증(Anonymous Authentication)** 을 사용합니다. 별도
 
 - [ ] 이메일 계정 연동 기능(데이터 백업)
 - [ ] 이미지 업로드 기능
-- [ ] 방문 통계 대시보드
+- [ ] 위시 태그 추가 및 태그별 조회 기능
 - [ ] 공유 기능 (친구와 레코드 공유)
+- [ ] 방문 통계 대시보드
