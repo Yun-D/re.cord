@@ -167,9 +167,11 @@ Firebase **익명 인증(Anonymous Authentication)** 을 사용합니다. 별도
 ### 👋 온보딩 -> 레코드 목록 조회
 
 닉네임을 입력하고 간편하게 시작할 수 있습니다. <br/><br/>
-![greeting_gif](https://github.com/user-attachments/assets/d7942ef7-45c5-44ce-9141-c04b7b26e3a8)
 
-<img width="562" height="903" alt="mainpage_record" src="https://github.com/user-attachments/assets/d133fa73-79d4-4ea1-8b99-f768d6919657" />
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/d7942ef7-45c5-44ce-9141-c04b7b26e3a8" width="45%" style="vertical-align: middle;" />
+  <img src="https://github.com/user-attachments/assets/d133fa73-79d4-4ea1-8b99-f768d6919657" width="45%" style="vertical-align: middle;" />
+</p>
 
 <br /> 
 <br />
@@ -177,15 +179,18 @@ Firebase **익명 인증(Anonymous Authentication)** 을 사용합니다. 별도
 ### 📝 핀 추가, 메모 추가
 
 장소를 검색해 핀을 추가하고, 방문할 때마다 메모(리뷰)를 남길 수 있습니다. <br/><br/>
-![pin add_gif](https://github.com/user-attachments/assets/8c5a51c4-10fb-42ed-946b-5d245b0ad5fd)
-![memoadd_gif](https://github.com/user-attachments/assets/aa410989-8825-4d50-bf96-5328ad5aa18c)
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/8c5a51c4-10fb-42ed-946b-5d245b0ad5fd" width="45%" />
+  <img src="https://github.com/user-attachments/assets/aa410989-8825-4d50-bf96-5328ad5aa18c" width="45%" />
+</p>
 
 <br /> <br />
 
 ### 💭 위시
 
 가보고싶은 장소를 저장해두고 언제든지 확인할 수 있습니다. <br/><br/>
-<img width="567" height="903" alt="Image" src="https://github.com/user-attachments/assets/24d454b9-6a56-465a-86cb-35d20c467172" />
+<img width="567" height="903" alt="wish" src="https://github.com/user-attachments/assets/ea6e1807-c420-42f4-864e-9b6d24b66eb3" />
 
 <br/>
 
